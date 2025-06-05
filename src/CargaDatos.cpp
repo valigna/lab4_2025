@@ -11,5 +11,5 @@ CargaDatos* CargaDatos::getInstance() {
     if (instance == 0) {
         instance = new CargaDatos();
     }
-    return instance;
+    return instance; hola
 }
