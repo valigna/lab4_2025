@@ -1,6 +1,7 @@
 #ifndef INMUEBLE_H
 #define INMUEBLE_H
 #include <string>
+#include <set>
 
 class Inmueble {
     private:
@@ -12,7 +13,8 @@ class Inmueble {
 
     public:
         Inmueble(int codigo, std::string direccion, int numeroPuerta, int superficie, int anoConstruccion);
-        ~Inmueble();
+        virtual ~Inmueble();
+        int getCodigo();
 };
 
 #endif
