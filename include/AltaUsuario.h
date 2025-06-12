@@ -2,16 +2,20 @@
 #define ALTAUSUARIO_H
 
 #include <string>
+#include <set>
 #include "Usuario.h"
 #include "TipoTecho.h"
 
 class AltaUsuario{
     private:
         Usuario* Utemp;
-    public:
+        static AltaUsuario* instancia;
         AltaUsuario();
-        ~AltaUsuario();
+        AltaUsuario(const AltaUsuario&) = delete;
+        AltaUsuario& operator=(const AltaUsuario&) = delete
+    public:
         void guardarReferencia(Usuario::Usuario u);
+        static AltaUsuario& getInstancia();
         Usuario* getUtemp();
         bool altaCliente(std::string nickname, std::string contrasena, std::string nombre, std::string email, std::string apellido, std::string documento); //PRE: contrasena tiene 6 >= caracteres
         bool altaPropietario(std::string nickname, std::string contrasena, std::string nombre, std::string email, std::string cuentaBancaria, std::string telefono); //PRE: contrasena tiene 6 >= caracteres
@@ -19,6 +23,8 @@ class AltaUsuario{
         std::set<DTUsuario::DTUsuario> listarPropietarios();
         void representarPropietario(std::string nicknamePropietario); //PRE Utemp!=NULL y Utemp es una instancia de Inmobiliaria
         void finalizarAltaUsuario();
-    };
+        std::set<DTUsuario::DTUsuario> listarInmobiliarias();
+        std::set<DTInmuebleAdministrado> listarInmueblesAdministrados(std::string nicknameInmobiliaria); //PRE Existe una instancia de Inmobiliaria i con nickname=nicknameInmobiliaria
+};
 
 #endif

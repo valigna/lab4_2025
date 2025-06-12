@@ -1,17 +1,17 @@
 #include "../include/ColeccionUsuario.h"
-#include "../include/Usuario.h"
 #include "../include/Propietario.h"
+#include "../include/AdministraPropiedad.h"
 
 ColeccionUsuario* ColeccionUsuario::instancia=NULL;
 
 ColeccionUsuario::ColeccionUsuario() {
-    itUsuarios = usuarios.end();
+    itUsuarios = this->usuarios.end();
 }
 
 Usuario* ColeccionUsuario::next(){
-    if (usuarios.empty()) return nullptr;
-    if (itUsuarios= usuarios.end() || itUsuarios==std::set<Usuario*>::iterator()) {
-        itUsuarios=usuarios.begin();
+    if (this->usuarios.empty()) return nullptr;
+    if (itUsuarios= this->usuarios.end()) {
+        itUsuarios=this->usuarios.begin();
     }
     Usuario* usuarioActual=*itUsuarios;
     itUsuarios++;
@@ -22,7 +22,7 @@ ColeccionUsuario& ColeccionUsuario::getInstancia(){
     if (instancia==NULL){
         instancia = new ColeccionUsuario();
     }
-    return instancia;
+    return *instancia;
 }
 
 bool ColeccionUsuario::existsUsuario(std::string nickname){
@@ -34,16 +34,15 @@ bool ColeccionUsuario::existsUsuario(std::string nickname){
     return false;
 }
 
-void ColeccionUsuario::addUsuario(Usuario::Usuario u){
-    usuarios.insert(u);
+void ColeccionUsuario::addUsuario(Usuario* u){
+    this->usuarios.insert(u);
 }
 
 Usuario* ColeccionUsuario::findUsuario(std::string nickname){
     for (Usuario* usuario:usuarios){
         if (usuario->getNickname()==nickname){
-            Usuario* f=usuario;
-            break;
+            return usuario
         }
     }
-    return f;
+    return NULL;
 }

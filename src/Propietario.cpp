@@ -1,6 +1,5 @@
 #include "../include/Propietario.h"
-#include <set>
 
-std::set<Inmueble*>& getInmuebles(){
+std::set<Inmueble*>& Propietario::getInmuebles(){
     return this->inmuebles;
 }

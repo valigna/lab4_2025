@@ -12,7 +12,7 @@ std::string Usuario::getNombre(){
 std::string Usuario::getEmail(){
     return this->email;
 }
-DTUsuario::DTUsuario getDTUsuario(){
+DTUsuario::DTUsuario Usuario::getDTUsuario(){
     DTUsuario::DTUsuario u;
     u->nickname=this->nickname;
     u->nombre=this->nombre;

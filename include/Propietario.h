@@ -2,6 +2,7 @@
 #define PROPIETARIO_H
 #include "Usuario.h"
 #include <string>
+#include <set>
 
 class Propietario : public Usuario {
     private:
