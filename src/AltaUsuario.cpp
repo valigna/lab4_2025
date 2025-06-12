@@ -9,7 +9,7 @@
 
 AltaUsuario* AltaUsuario::instancia=NULL;
 
-AltaUsuario& getInstancia(){
+AltaUsuario& AltaUsuario::getInstancia(){
     if (instancia==NULL){
         instancia= new AltaUsuario;
         instancia->Utemp=NULL;

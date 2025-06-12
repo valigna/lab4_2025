@@ -4,7 +4,7 @@
 
 ControllerPublicacion* ControllerPublicacion::instancia=NULL;
 
-ControllerPublicacion& getInstancia(){
+ControllerPublicacion& ControllerPublicacion::getInstancia(){
     if (instancia==NULL){
         instancia= new ControllerPublicacion;
         instancia->codigoUP=0;
