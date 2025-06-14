@@ -25,6 +25,8 @@ class AltaUsuario{
         void finalizarAltaUsuario();
         std::set<DTUsuario::DTUsuario> listarInmobiliarias();
         std::set<DTInmuebleAdministrado> listarInmueblesAdministrados(std::string nicknameInmobiliaria); //PRE Existe una instancia de Inmobiliaria i con nickname=nicknameInmobiliaria
+		std::set<DTInmueble> listarNoSuscripciones(std::string nick);
+		void agregarSuscripciones(std::set<std::string> nicksInmobiliarias);
 };
 
 #endif

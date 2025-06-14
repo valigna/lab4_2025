@@ -1,6 +1,7 @@
 #ifndef INMOBILIARIA_H
 #define INMOBILIARIA_H
 #include "Usuario.h"
+#include "IObservers.h"
 #include <string>
 #include <set>
 
@@ -11,6 +12,8 @@ class Inmobiliaria : public Usuario {
         std::string telefono;
         std::set<Propietario*> propietarios;
         std::set<AdministraPropiedad*> APs;
+		std::set<IObservers*> observers;
+		void notificarObservers(int codigo);
 
     public:
         Inmobiliaria(std::string nickname, std::string contrasena, std::string nombre, std::string email, std::string direccion, std::string url, std::string telefono);
@@ -18,6 +21,8 @@ class Inmobiliaria : public Usuario {
         std::set<Propietario*>& getPropietarios();
         std::set<AdministraPropiedad*> getAPs();
         AdministraPropiedad* getAP(int codigoInmueble);
+		void suscribir(IObservers* o);
+		void desuscribir(IObservers* o);
 };
 
 #endif
