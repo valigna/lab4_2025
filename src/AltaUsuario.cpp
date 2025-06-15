@@ -7,7 +7,6 @@
 #include "../include/Apartamento.h"
 #include "../include/ControladorFechaActual.h"
 
-AltaUsuario* AltaUsuario::instancia=NULL;
 
 AltaUsuario& AltaUsuario::getInstancia(){
     if (instancia==NULL){
@@ -40,7 +39,6 @@ bool AltaUsuario::altaPropietario(std::string nickname, std::string contrasena, 
         Propietario propietario(nickname, contrasena, nombre, email, cuentaBancaria, telefono);
         ColeccionUsuario::getInstancia().add(propietario);
         AltaUsuario::guardarReferencia(propietario);
-        guardarReferencia(propietario);
     }
     return t;
 }
@@ -51,7 +49,6 @@ bool AltaUsuario::altaInmobiliaria(std::string nickname, std::string contrasena,
         Inmobiliaria inmobiliaria(nickname, contrasena, nombre, email, direccion, url, telefono);
         ColeccionUsuario::getInstancia().add(inmobiliaria);
         AltaUsuario::guardarReferencia(inmobiliaria);
-        guardarReferencia(inmobiliaria);
     }
     return t;
 }
@@ -73,7 +70,7 @@ std::set<DTUsuario::DTUsuario> AltaUsuario::listarPropietarios(){
 void AltaUsuario::representarPropietario(std::string nicknamePropietario){
     Propietario* p=ColeccionUsuario::getInstancia().findUsuario(nicknamePropietario);
     for (Inmueble* inmueble:p.getInmuebles()){
-        AdministraPropiedad* ap= AdministraPropiedad(ControladorFechaActual::getInstance().getFechaActual());
+        AdministraPropiedad* ap= AdministraPropiedad(Factory::getControladorFechaActual().getFechaActual());
         ap.inmobiliaria=AltaUsuario::getUtemp();
         ap.inmueble=inmueble;
     };
@@ -92,7 +89,7 @@ std::set<DTUsuario::DTUsuario> AltaUsuario::listarInmobiliarias(){
     Usuario* usuario=primero
     do {
         if (dynamic_cast<Inmobiliaria*>(usuario)!=NULL){
-            i.insert(usuario->getDTUsuario());
+            i.insert(usuario.getDTUsuario());
         }
         usuario=ColeccionUsuario::getInstancia().next();
     } while (usuario!=primero);

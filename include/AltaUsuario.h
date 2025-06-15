@@ -6,16 +6,14 @@
 #include "Usuario.h"
 #include "TipoTecho.h"
 
-class AltaUsuario{
+class AltaUsuario : public IAltaUsuario{
     private:
         Usuario* Utemp;
         static AltaUsuario* instancia;
         AltaUsuario();
-        AltaUsuario(const AltaUsuario&) = delete;
-        AltaUsuario& operator=(const AltaUsuario&) = delete
     public:
+        AltaUsuario& AltaUsuario::getInstancia();
         void guardarReferencia(Usuario::Usuario u);
-        static AltaUsuario& getInstancia();
         Usuario* getUtemp();
         bool altaCliente(std::string nickname, std::string contrasena, std::string nombre, std::string email, std::string apellido, std::string documento); //PRE: contrasena tiene 6 >= caracteres
         bool altaPropietario(std::string nickname, std::string contrasena, std::string nombre, std::string email, std::string cuentaBancaria, std::string telefono); //PRE: contrasena tiene 6 >= caracteres
@@ -25,6 +23,7 @@ class AltaUsuario{
         void finalizarAltaUsuario();
         std::set<DTUsuario::DTUsuario> listarInmobiliarias();
         std::set<DTInmuebleAdministrado> listarInmueblesAdministrados(std::string nicknameInmobiliaria); //PRE Existe una instancia de Inmobiliaria i con nickname=nicknameInmobiliaria
+        ~AltaUsuario();
 };
 
 #endif
