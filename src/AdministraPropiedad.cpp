@@ -2,7 +2,7 @@
 #include "../include/Factory.h"
 #include "../include/ControladorFechaActual.h"
 
-AdministraPropiedad(DTFecha* fecha){
+AdministraPropiedad::AdministraPropiedad(DTFecha* fecha){
     this->fecha=fecha;
 }
 
