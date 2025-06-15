@@ -5,6 +5,7 @@
 #include <set>
 #include "Usuario.h"
 #include "TipoTecho.h"
+#include "IAltaUsuario.h"
 
 class AltaUsuario : public IAltaUsuario{
     private:
