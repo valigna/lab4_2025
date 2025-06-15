@@ -1,7 +1,11 @@
 #include "../include/AdministraPropiedad.h"
-#include "../include/Inmobiliaria.h"
 #include "../include/Factory.h"
 #include "../include/ControladorFechaActual.h"
+
+AdministraPropiedad(DTFecha* fecha){
+    this->fecha=fecha;
+    return
+}
 
 Inmobiliaria* AdministraPropiedad::getInmobiliaria(){
     return this->inmobiliaria;
