@@ -2,8 +2,6 @@
 #include "../include/ControllerPublicacion.h"
 #include "../include/Publicacion.h"
 
-ControllerPublicacion* ControllerPublicacion::instancia=NULL;
-
 ControllerPublicacion& ControllerPublicacion::getInstancia(){
     if (instancia==NULL){
         instancia= new ControllerPublicacion;

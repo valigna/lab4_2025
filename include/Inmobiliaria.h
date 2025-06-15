@@ -6,7 +6,7 @@
 #include <string>
 #include <set>
 
-class administraPropiedad; // Forward declaration
+class AdministraPropiedad; // Forward declaration
 
 class Inmobiliaria : public Usuario {
     private:
