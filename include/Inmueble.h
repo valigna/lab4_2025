@@ -3,8 +3,8 @@
 
 #include <string>
 #include <set>
-#include "Propietario.h"
 
+class Propietario; // Forward declaration
 class AdministraPropiedad; // Forward declaration
 
 class Inmueble {
