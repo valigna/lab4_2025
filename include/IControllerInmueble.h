@@ -1,0 +1,15 @@
+#ifndef ICONTROLLERINMUEBLE_H
+#define ICONTROLLERINMUEBLE_H
+
+#include <string>
+#include "TipoTecho.h"
+
+class IControllerInmueble{
+    public:
+        virtual int actualizarCodigoInmueble() = 0;
+        virtual void eliminarInmueble(int:codigoInmueble) = 0;
+        virtual void AltaCasa(std::string direccion, int numeroPuerta, int superficie, int anoConstruccion, bool esPH, TipoTecho::TipoTecho techo) = 0;
+        virtual void AltaApartamento(std::string direccion, int numeroPuerta, int superficie, int anoConstruccion, int piso, bool tieneAscensor, float gastosComunes) = 0;
+};
+
+#endif

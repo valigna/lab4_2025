@@ -1,10 +1,10 @@
-#ifndef COLECCIONUSUARIO_H
-#define COLECCIONUSUARIO_H
+#ifndef CONTROLLERINMUEBLE_H
+#define CONTROLLERINMUEBLE_H
 
 #include <string>
 #include "TipoTecho.h"
 
-class ControllerInmueble{
+class ControllerInmueble : public IControllerInmueble{
     private:
         int ultimoCodigoInmueble;
     public:

@@ -4,14 +4,12 @@
 #include <string>
 #include "TipoPublicacion.h"
 
-class ControllerPublicacion {
+class ControllerPublicacion : public IControllerPublicacion{
     private:
         int codigoUP;
         static ControllerPublicacion* instancia;
         ControllerPublicacion();
-       std::map<int,Publicacion*> publicaciones;
-        ControllerPublicacion(const ControllerPublicacion&) = delete;
-        ControllerPublicacion& operator=(const ControllerPublicacion&) = delete
+        std::map<int,Publicacion*> publicaciones;
     public:
         static ControllerPublicacion& getInstancia();
         bool AltaPublicacion(std::string nicknameInmobiliaria, int codigoInmueble, TipoPublicacion tipoPublicacion, std::string texto, float precio);

@@ -10,12 +10,12 @@ int ControllerInmueble::actualizarCodigoInmueble(){
 
 void ControllerInmueble::AltaCasa(std::string direccion, int numeroPuerta, int superficie, int anoConstruccion, bool esPH, TipoTecho::TipoTecho techo){
     Casa casa(actualizarCodigoInmueble(), direccion, numeroPuerta, superficie, anoConstruccion, esPH, techo);
-    setPropietario(AltaUsuario::getInstancia().getUtemp());
-    AltaUsuario::getInstancia().getUtemp().getInmuebles().insert(casa);
+    setPropietario(Factory::getAltaUsuario().getUtemp());
+    Factory::getAltaUsuario().getUtemp().getInmuebles().insert(casa);
 }
 
 void ControllerInmueble::AltaApartamento(std::string direccion, int numeroPuerta, int superficie, int anoConstruccion, int piso, bool tieneAscensor, float gastosComunes){
     Apartamento apartamento(actualizarCodigoInmueble(), direccion, numeroPuerta, superficie, anoConstruccion, piso, tieneAscensor, gastosComunes);
-    setPropietario(AltaUsuario::getInstancia().getUtemp());
-    AltaUsuario::getInstancia().getUtemp().getInmuebles().insert(apartamento);
+    setPropietario(Factory::getAltaUsuario().getUtemp());
+    Factory::getAltaUsuario().getUtemp().getInmuebles().insert(apartamento);
 }
