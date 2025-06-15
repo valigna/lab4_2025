@@ -4,7 +4,6 @@
 
 AdministraPropiedad(DTFecha* fecha){
     this->fecha=fecha;
-    return
 }
 
 Inmobiliaria* AdministraPropiedad::getInmobiliaria(){
