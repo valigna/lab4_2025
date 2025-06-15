@@ -1,5 +1,6 @@
 #include "../include/AdministraPropiedad.h"
 #include "../include/Factory.h"
+#include "../include/ControladorFechaActual.h"
 
 Inmobiliaria* AdministraPropiedad::getInmobiliaria(){
     return this->inmobiliaria;
