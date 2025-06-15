@@ -22,8 +22,7 @@ DTInmuebleAdministrado* AdministraPropiedad::getDTInmuebleAdministrado(){
 }
 
 bool AdministraPropiedad::existeTipoPublicacionActual(TipoPublicacion tipoPublicacion){
-    IControladorFechaActual* C= Factory::getControladorFechaActual();
-    DTFecha* f= C->getFechaActual();
+    DTFecha* f= Factory::getInstance->getControladorFechaActual()->getFechaActual();
     if (tipoPublicacion==Venta){
         return this->PVentaActiva->getDTFecha()==f;
     }
