@@ -17,7 +17,7 @@ class Usuario {
         std::string getContrasena();
         std::string getNombre();
         std::string getEmail();
-        DTUsuario::DTUsuario getDTUsuario(); 
+        DTUsuario* getDTUsuario(); 
 };
 
 #endif

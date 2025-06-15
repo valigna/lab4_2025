@@ -2,6 +2,8 @@
 #define INMOBILIARIA_H
 #include "Usuario.h"
 #include "IObservers.h"
+#include "Propietario.h"
+#include "AdministraPropiedad.h"
 #include <string>
 #include <set>
 

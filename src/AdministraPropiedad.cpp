@@ -13,7 +13,7 @@ DTFecha* AdministraPropiedad::getFechaIni(){
 }
 
 DTInmuebleAdministrado* AdministraPropiedad::getDTInmuebleAdministrado(){
-    dtia= new DTInmuebleAdministrado;
+    DTInmuebleAdministrado* dtia= new DTInmuebleAdministrado;
     dtia.codigo=AdministraPropiedad::getInmueble().getCodigo();
     dtia.direccion=AdministraPropiedad::getInmueble().getDireccion();
     dtia.direccion=AdministraPropiedad::getFechaIni();

@@ -3,7 +3,7 @@
 
 class IObservers {
 	public:
-		virtual notificar();
+		virtual void notificar();
 };
 
 #endif
