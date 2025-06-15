@@ -23,8 +23,8 @@ public:
     void setAP(AdministraPropiedad* ap);
     void desactivar();
     void activar();
-bool cumpleFiltros(tipopublicacion TipoPublicacion ,preciominimo float, preciomaximo float)
-    bool mismotipo(tipo tipoInmueble)
+bool cumpleFiltros(tipopublicacion TipoPublicacion ,preciominimo float, preciomaximo float;
+    bool mismotipo(tipo tipoInmueble);
     DTPublicacion getDatos();
 };
 
