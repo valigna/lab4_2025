@@ -10,7 +10,7 @@ class Apartamento : public Inmueble {
         float gastosComunes;
 
     public:
-        Apartamento(int piso, bool tieneAscensor, float gastosComunes);
+        Apartamento(int codigo, std::string direccion, int numeroPuerta, int superficie, int anoConstruccion, int piso, bool tieneAscensor, float gastosComunes);
         ~Apartamento();
 };
 
