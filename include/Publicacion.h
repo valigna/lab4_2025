@@ -2,6 +2,7 @@
 #define PUBLICACION_H
 #include "DTFecha.h"
 #include "TipoPublicacion.h"
+#include "DTPublicacion.h"
 #include "TipoInmueble.h"
 #include <string>
 #include "AdministraPropiedad.h"

@@ -1,4 +1,5 @@
 #include "../include/AdministraPropiedad.h"
+#include "../include/Factory.h"
 
 Inmobiliaria* AdministraPropiedad::getInmobiliaria(){
     return this->inmobiliaria;
@@ -13,18 +14,18 @@ DTFecha* AdministraPropiedad::getFechaIni(){
 }
 
 DTInmuebleAdministrado* AdministraPropiedad::getDTInmuebleAdministrado(){
-    Inmueble* i= AdministraPropiedad::getInmueble().getDireccion();
-    DTInmuebleAdministrado* dtia=DTInmuebleAdministrado(i.getCodigo(), i.getDireccion(), AdministraPropiedad::getFechaIni());
+    Inmueble* i= AdministraPropiedad::getInmueble()->getDireccion();
+    DTInmuebleAdministrado* dtia=DTInmuebleAdministrado(i->getCodigo(), i->getDireccion(), AdministraPropiedad::getFechaIni());
     return dtia;
 }
 
 bool AdministraPropiedad::existeTipoPublicacionActual(TipoPublicacion tipoPublicacion){
     DTFecha* f= Factory::getControladorFechaActual().getFechaActual();
     if (tipoPublicacion==Venta){
-        return this->PVentaActiva.getDTFecha()==f;
+        return this->PVentaActiva->getDTFecha()==f;
     }
     else {
-        return this->PAlquilerActiva.getDTFecha()==f;
+        return this->PAlquilerActiva->getDTFecha()==f;
     }
 }
 
