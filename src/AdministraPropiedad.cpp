@@ -1,4 +1,5 @@
 #include "../include/AdministraPropiedad.h"
+#include "../include/Inmobiliaria.h"
 #include "../include/Factory.h"
 #include "../include/ControladorFechaActual.h"
 
@@ -21,7 +22,7 @@ DTInmuebleAdministrado* AdministraPropiedad::getDTInmuebleAdministrado(){
 }
 
 bool AdministraPropiedad::existeTipoPublicacionActual(TipoPublicacion tipoPublicacion){
-    ControladorFechaActual* C= Factory::getControladorFechaActual();
+    IControladorFechaActual* C= Factory::getControladorFechaActual();
     DTFecha* f= C->getFechaActual();
     if (tipoPublicacion==Venta){
         return this->PVentaActiva->getDTFecha()==f;
