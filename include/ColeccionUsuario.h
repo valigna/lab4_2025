@@ -10,7 +10,7 @@ class ColeccionUsuario {
     private:
         static ColeccionUsuario* instancia;
         std::set<Usuario*> usuarios;
-        std::set<Usuario*>::iterador itUsuarios;
+        std::set<Usuario*>::iterator itUsuarios;
         ColeccionUsuario();
         ColeccionUsuario(const ColeccionUsuario&) = delete;
         ColeccionUsuario& operator=(const ColeccionUsuario&) = delete
