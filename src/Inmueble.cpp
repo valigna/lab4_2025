@@ -1,4 +1,13 @@
 #include "../include/Inmueble.h"
+Inmueble::Inmueble(int codigo, std::string direccion, int numeroPuerta,
+                   int superficie, int anoConstruccion, Propietario* propietario)
+    : codigo(codigo),
+      direccion(direccion),
+      numeroPuerta(numeroPuerta),
+      superficie(superficie),
+      anoConstruccion(anoConstruccion),
+      propietario(propietario),
+     {}
 
 int Inmueble::getCodigo(){
     return this->codigo;
