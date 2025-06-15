@@ -16,7 +16,7 @@ AltaUsuario& AltaUsuario::getInstancia(){
     return *AltaUsuario;
 }
 
-void AltaUsuario::guardarReferencia(Usuario::Usuario u){
+void AltaUsuario::guardarReferencia(Usuario* u){
     this->Utemp=u;
 }
 
@@ -53,8 +53,8 @@ bool AltaUsuario::altaInmobiliaria(std::string nickname, std::string contrasena,
     return t;
 }
 
-std::set<DTUsuario::DTUsuario> AltaUsuario::listarPropietarios(){
-    std::set<DTUsuario::DTUsuario> p;
+std::set<DTUsuario*> AltaUsuario::listarPropietarios(){
+    std::set<DTUsuario*> p;
     Usuario* primero=ColeccionUsuario::getInstancia().next();
     if (primero==NULL) return p;
     Usuario* usuario=primero
@@ -82,8 +82,8 @@ void AltaUsuario::finalizarAltaUsuario(){
     this->Utemp=NULL;
 }
 
-std::set<DTUsuario::DTUsuario> AltaUsuario::listarInmobiliarias(){
-     std::set<DTUsuario::DTUsuario> i;
+std::set<DTUsuario*> AltaUsuario::listarInmobiliarias(){
+     std::set<DTUsuario*> i;
     Usuario* primero=ColeccionUsuario::getInstancia().next();
     if (primero==NULL) return i;
     Usuario* usuario=primero
@@ -96,7 +96,7 @@ std::set<DTUsuario::DTUsuario> AltaUsuario::listarInmobiliarias(){
     return i;
 }
 
-std::set<DTInmuebleAdministrado> AltaUsuario::listarInmueblesAdministrados(std::string nicknameInmobiliaria){
+std::set<DTInmuebleAdministrado*> AltaUsuario::listarInmueblesAdministrados(std::string nicknameInmobiliaria){
     std::set<DTInmuebleAdministrado> dtia;
     Inmobiliaria* i=ColeccionUsuario::getInstancia().findUsuario(nicknameInmobiliaria);
     for (AdministraPropiedad* ap:i.getAPs()){

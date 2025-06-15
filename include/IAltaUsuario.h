@@ -1,11 +1,12 @@
 #ifndef IALTAUSUARIO_H
 #define IALTAUSUARIO_H
 
-#include "DTFecha.h"
 #include <string>
 #include <set>
 #include "Usuario.h"
 #include "TipoTecho.h"
+#include "DTFecha.h"
+#include "DTInmuebleAdministrado.h"
 
 class IAltaUsuario {
     public:
@@ -18,7 +19,7 @@ class IAltaUsuario {
         virtual void representarPropietario(std::string nicknamePropietario) = 0; 
         virtual void finalizarAltaUsuario() = 0;
         virtual std::set<DTUsuario*> listarInmobiliarias() = 0;
-        virtual std::set<DTInmuebleAdministrado> listarInmueblesAdministrados(std::string nicknameInmobiliaria) = 0; 
+        virtual std::set<DTInmuebleAdministrado*> listarInmueblesAdministrados(std::string nicknameInmobiliaria) = 0; 
 };
 
 #endif
