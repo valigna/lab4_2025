@@ -6,8 +6,8 @@
 
 class IControllerPublicacion {
     public:
-        bool AltaPublicacion(std::string nicknameInmobiliaria, int codigoInmueble, TipoPublicacion tipoPublicacion, std::string texto, float precio) = 0;
-        int actualizarCodigoUP() = 0;
+        virtual bool AltaPublicacion(std::string nicknameInmobiliaria, int codigoInmueble, TipoPublicacion tipoPublicacion, std::string texto, float precio) = 0;
+        virtual int actualizarCodigoUP() = 0;
 };
 
 #endif

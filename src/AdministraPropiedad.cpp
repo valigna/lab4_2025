@@ -14,13 +14,13 @@ DTFecha* AdministraPropiedad::getFechaIni(){
 }
 
 DTInmuebleAdministrado* AdministraPropiedad::getDTInmuebleAdministrado(){
-    Inmueble* i= AdministraPropiedad::getInmueble()->getDireccion();
-    DTInmuebleAdministrado* dtia=DTInmuebleAdministrado(i->getCodigo(), i->getDireccion(), AdministraPropiedad::getFechaIni());
+    Inmueble* i= AdministraPropiedad::getInmueble();
+    DTInmuebleAdministrado* dtia= new DTInmuebleAdministrado(i->getCodigo(), i->getDireccion(), AdministraPropiedad::getFechaIni());
     return dtia;
 }
 
 bool AdministraPropiedad::existeTipoPublicacionActual(TipoPublicacion tipoPublicacion){
-    DTFecha* f= Factory::getControladorFechaActual().getFechaActual();
+    DTFecha* f= Factory::getControladorFechaActual()->getFechaActual();
     if (tipoPublicacion==Venta){
         return this->PVentaActiva->getDTFecha()==f;
     }

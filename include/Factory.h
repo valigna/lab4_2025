@@ -14,9 +14,9 @@ class Factory {
     public:
         static Factory* getInstance();
         IControladorFechaActual* getControladorFechaActual();
-        IAltaUsuario* Factory::getAltaUsuario();
-        IControllerPublicacion* Factory::getControllerPublicacion();
-        IControllerInmueble* Factory::getControllerInmueble();
+        IAltaUsuario* getAltaUsuario();
+        IControllerPublicacion* getControllerPublicacion();
+        IControllerInmueble* getControllerInmueble();
         //TODO: Get interfaces de controladores
         ~Factory();
 };
