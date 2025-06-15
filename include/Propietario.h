@@ -2,6 +2,7 @@
 #define PROPIETARIO_H
 #include "Usuario.h"
 #include "IObservers.h"
+#include "Inmueble.h"
 #include <string>
 #include <set>
 
