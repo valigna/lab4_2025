@@ -3,9 +3,10 @@
 #include "Usuario.h"
 #include "IObservers.h"
 #include "Propietario.h"
-#include "AdministraPropiedad.h"
 #include <string>
 #include <set>
+
+class administraPropiedad; // Forward declaration
 
 class Inmobiliaria : public Usuario {
     private:

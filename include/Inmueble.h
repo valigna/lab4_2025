@@ -1,9 +1,11 @@
 #ifndef INMUEBLE_H
 #define INMUEBLE_H
+
 #include <string>
 #include <set>
 #include "Propietario.h"
-#include "AdministraPropiedad.h"
+
+class AdministraPropiedad; // Forward declaration
 
 class Inmueble {
     private:
