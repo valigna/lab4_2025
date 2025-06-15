@@ -2,6 +2,7 @@
 #define PUBLICACION_H
 #include "DTFecha.h"
 #include "TipoPublicacion.h"
+#include "TipoInmueble.h"
 #include <string>
 #include "AdministraPropiedad.h"
 
@@ -25,7 +26,7 @@ public:
     void activar();
     bool cumpleFiltros(TipoPublicacion tipopublicacion , float preciominimo, float preciomaximo);
     bool mismotipo(TipoInmueble tipo);
-    DTPublicacion getDatos();
+    DTPublicacion* getDatos();
 };
 
 #endif
