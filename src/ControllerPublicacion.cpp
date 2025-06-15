@@ -18,9 +18,9 @@ int ControllerPublicacion::actualizarCodigoUP(){
 }
 
 bool ControllerPublicacion::AltaPublicacion(std::string nicknameInmobiliaria, int codigoInmueble, TipoPublicacion tipoPublicacion, std::string texto, float precio){
-    Inmobiliaria* i=AltaUsuario::getInstancia().find(nicknameInmobiliaria);
+    Inmobiliaria* i=Factory::getAltaUsuario().find(nicknameInmobiliaria);
     AdministraPropiedad ap =i.getAP(codigoInmueble);
-    DTFecha* f= ControladorFechaActual::getInstance().getFechaActual();
+    DTFecha* f= Factory::getControladorFechaActual().getFechaActual();
     if (ap.existeTipoPublicacionActual(tipoPublicacion)){
         return false;
     }
