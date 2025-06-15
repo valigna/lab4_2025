@@ -2,6 +2,8 @@
 #define INMUEBLE_H
 #include <string>
 #include <set>
+#include "Propietario.h"
+#include "AdministraPropiedad.h"
 
 class Inmueble {
     private:

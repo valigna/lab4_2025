@@ -2,8 +2,9 @@
 #define ADMINISTRAPROPIEDAD_H
 
 #include "DTFecha.h"
-#include "Inmobliaria.h"
+#include "Inmobiliaria.h"
 #include "Inmueble.h"
+#include "Publicacion.h"
 #include "DTInmuebleAdministrado.h"
 #include "TipoPublicacion.h"
 #include <set>
@@ -13,7 +14,7 @@
 class AdministraPropiedad {
     private:
         DTFecha* fecha;
-        Inmobliliaria* inmobiliaria;
+        Inmobiliaria* inmobiliaria;
         Inmueble* inmueble;
         std::set<Publicacion*> publicaciones;
         Publicacion* PVentaActiva;
