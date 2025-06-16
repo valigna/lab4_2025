@@ -22,7 +22,7 @@ ColeccionUsuario& ColeccionUsuario::getInstancia(){
     if (instancia==NULL){
         instancia = new ColeccionUsuario();
     }
-    return instancia;
+    return *instancia;
 }
 
 bool ColeccionUsuario::existsUsuario(std::string nickname){

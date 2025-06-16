@@ -26,6 +26,8 @@ class AdministraPropiedad {
         Inmueble* getInmueble();
         DTInmuebleAdministrado* getDTInmuebleAdministrado();
         DTFecha* getFechaIni();
+        void setInmobiliaria(Inmobiliaria* i);
+        void setInmueble(Inmueble* in);
         bool existeTipoPublicacionActual(TipoPublicacion tipoPublicacion);
         std::set<Publicacion*> getPublicaciones();
         Publicacion* getPVentaActiva();

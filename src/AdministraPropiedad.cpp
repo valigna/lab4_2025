@@ -18,6 +18,14 @@ DTFecha* AdministraPropiedad::getFechaIni(){
     return this->fecha;
 }
 
+void setInmobiliaria(Inmobiliaria* i){
+    this->inmobiliaria=i;
+}
+
+void setInmueble(Inmueble* in){
+    this->inmueble=in;
+}
+
 DTInmuebleAdministrado* AdministraPropiedad::getDTInmuebleAdministrado(){
     Inmueble* i= AdministraPropiedad::getInmueble();
     DTInmuebleAdministrado* dtia= new DTInmuebleAdministrado(i->getCodigo(), i->getDireccion(), AdministraPropiedad::getFechaIni());
