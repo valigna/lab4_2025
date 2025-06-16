@@ -75,15 +75,15 @@ std::set<DTPublicacion*> ControllerPublicacion::listarPublicacion(TipoPublicacio
     return resultado;
 }
 
-DTInmueble* ControllerPublicacion::detalleInmueblePublicacion(int codigoPublicacion){
+DTInmueble* ControllerPublicacion::detalleInmueblePublicacion(int codigoPublicacion) {
     Publicacion* pub = this->publicaciones.find(codigoPublicacion)->second;
     Inmueble* i = pub->getAP()->getInmueble();
-    if (dynamic_cast<Casa*>(i)!=NULL){
-        return DTCasa(i->getCodigo(),i->getDireccion(), i->getNumeroPuerta(),i->getSuperficie(),i->getAnoConstruccion(),i->getEsPH(),i->getTecho());
-    else{
+    if (dynamic_cast<Casa*>(i) != nullptr) {
+        Casa* casa = static_cast<Casa*>(i);
+        return new DTCasa(casa->getCodigo(), casa->getDireccion(), casa->getNumeroPuerta(), casa->getSuperficie(), casa->getAnoConstruccion(), casa->getEsPH(), casa->getTecho());
+    } else {
         Apartamento* apto = static_cast<Apartamento*>(i);
-        return DTApartamento(apto->getCodigo(),apto->getDireccion(),apto->getNumeroPuerta(), apto->getSuperficie(),apto->getAnoConstruccion(),apto->getPiso(),apto->getTieneAscensor(), apto->getGastosComunes() );
-        }
+        return new DTApartamento(apto->getCodigo(), apto->getDireccion(), apto->getNumeroPuerta(), apto->getSuperficie(), apto->getAnoConstruccion(), apto->getPiso(), apto->getTieneAscensor(), apto->getGastosComunes());
     }
 }
 

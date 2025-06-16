@@ -1,5 +1,6 @@
 #ifndef CASA_H
 #define CASA_H
+
 #include "Inmueble.h"
 #include "TipoTecho.h"
 
