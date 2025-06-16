@@ -21,7 +21,7 @@ class ControllerPublicacion : public IControllerPublicacion{
         static ControllerPublicacion& getInstancia();
         bool AltaPublicacion(std::string nicknameInmobiliaria, int codigoInmueble, TipoPublicacion tipoPublicacion, std::string texto, float precio);
         int actualizarCodigoUP();
-        std::set<DTPublicacion*> listarPublicacion(TipoPublicacion tipoPublicacion, float precionMinimo, float precioMaximo, TipoInmueble tipoInmueble);
+        std::set<DTPublicacion*> listarPublicacion(TipoPublicacion tipoPublicacion, float precioMinimo, float precioMaximo, TipoInmueble tipoInmueble);
         DTInmueble* detalleInmueblePublicacion(int codigoPublicacion);
  
 

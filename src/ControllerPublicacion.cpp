@@ -46,25 +46,26 @@ bool ControllerPublicacion::AltaPublicacion(std::string nicknameInmobiliaria, in
         else {
             if (ap->getPAlquilerActiva()==NULL){
                 p->activar();
-                ap->setPAlquileraActiva(p);
+                ap->setPAlquilerActiva(p);
             }
             else if (ap->getAlquilerActiva()->getDTFecha()->operator<(f)){
                 ap->getPAlquilerActiva()->desactivar();
                 p->activar();
-                ap->setPAlquileraActiva(p);
+                ap->setPAlquilerActiva(p);
             }
         }
     }
     return true;
 }
 
-std::set<DTPublicacion*> ControllerPublicacion::listarPublicacion(TipoPublicacion tipoPublicacion, float precionMinimo, float precioMaximo, TipoInmueble tipoInmueble){  
-    std::set<DTPublicacion> resultado;
-    for (Publicacion* pub : this->publicaciones) {
+std::set<DTPublicacion*> ControllerPublicacion::listarPublicacion(TipoPublicacion tipoPublicacion, float precioMinimo, float precioMaximo, TipoInmueble tipoInmueble){  
+    std::set<DTPublicacion*> resultado;
+    for (const auto& par : publicaciones) {
+        Publicacion* pub = par.second;
         if (pub->cumpleFiltros(tipoPublicacion, precioMinimo, precioMaximo) &&
             pub->mismotipo(tipoInmueble)) {
-            
-            DTPublicacion dt = pub->getData();
+
+            DTPublicacion dt = pub->getDatos();
             resultado.insert(dt);
         }
     }
@@ -74,12 +75,17 @@ std::set<DTPublicacion*> ControllerPublicacion::listarPublicacion(TipoPublicacio
 
 DTInmueble* ControllerPublicacion::detalleInmueblePublicacion(int codigoPublicacion){
     Publicacion* pub = this->publicaciones.find(codigoPublicacion)->second;
-    i *inmueble = pub->AP->inmueble
-    if (Casa* casa = dynamic_cast<Casa*>(i)) 
+    Inmueble* i = pub->getAP()->getInmueble();
+    if ((Casa* casa = dynamic_cast<Casa*>(i))!=NULL){
         return DTCasa(casa->getCodigo(),casa->getDireccion(), casa->getNumeroPuerta(),casa->getSuperficie(),casa->getAnoConstruccion(),casa->getEsPH(),casa->getTecho());
-        else
+    else{
+        Apartamento* apto = dynamic_cast<Apartamento*>(i)
         return DTApartamento(apto->getCodigo(),apto->getDireccion(),apto->getNumeroPuerta(), apto->getSuperficie(),apto->getAnoConstruccion(),apto->getPiso(),apto->getTieneAscensor(), apto->getGastosComunes() );
+        }
+    }
 }
+
+
 
     
 
