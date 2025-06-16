@@ -15,7 +15,7 @@ AltaUsuario& AltaUsuario::getInstancia(){
         instancia= new AltaUsuario;
         instancia->Utemp=NULL;
     }
-    return AltaUsuario;
+    return *AltaUsuario;
 }
 
 void AltaUsuario::guardarReferencia(Usuario* u){
