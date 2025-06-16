@@ -10,7 +10,7 @@ ColeccionUsuario::ColeccionUsuario() {
 
 Usuario* ColeccionUsuario::next(){
     if (this->usuarios.empty()) return nullptr;
-    if (itUsuarios= this->usuarios.end()) {
+    if (itUsuarios == this->usuarios.end()) {
         itUsuarios=this->usuarios.begin();
     }
     Usuario* usuarioActual=*itUsuarios;
@@ -41,7 +41,7 @@ void ColeccionUsuario::addUsuario(Usuario* u){
 Usuario* ColeccionUsuario::findUsuario(std::string nickname){
     for (Usuario* usuario:usuarios){
         if (usuario->getNickname()==nickname){
-            return usuario
+            return usuario;
         }
     }
     return NULL;
