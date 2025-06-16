@@ -7,7 +7,7 @@ ControllerPublicacion& ControllerPublicacion::getInstancia(){
         instancia= new ControllerPublicacion;
         instancia->codigoUP=0;
     }
-    return ControllerPublicacion;
+    return instancia;
 }
 
 int ControllerPublicacion::actualizarCodigoUP(){

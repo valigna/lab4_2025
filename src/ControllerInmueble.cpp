@@ -10,7 +10,7 @@ ControllerInmueble& ControllerInmueble::getInstancia(){
         instancia= new ControllerInmueble;
         instancia->ultimoCodigoInmueble=0;
     }
-    return ControllerInmueble;
+    return instancia;
 }
 
 int ControllerInmueble::actualizarCodigoInmueble(){
