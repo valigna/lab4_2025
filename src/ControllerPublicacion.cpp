@@ -1,7 +1,8 @@
-#include <string>
 #include "../include/ControllerPublicacion.h"
 #include "../include/Publicacion.h"
 #include "../include/Factory.h"
+#include "../include/Inmueble.h"
+#include "../include/Inmobiliaria.h"
 
 ControllerPublicacion& ControllerPublicacion::getInstancia(){
     if (instancia==NULL){
