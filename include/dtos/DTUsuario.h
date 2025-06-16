@@ -1,6 +1,7 @@
 #ifndef DTUSUARIO_H
 #define DTUSUARIO_H
 
+#include <iostream>
 #include <string>
 
 class DTUsuario {
@@ -13,6 +14,7 @@ class DTUsuario {
         std::string getNickname();
         std::string getNombre();
         bool operator<(DTUsuario& other);
+        friend std::ostream& operator<<(std::ostream& os, const DTUsuario& dt);
 };
 
 #endif

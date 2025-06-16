@@ -1,4 +1,4 @@
-#include "../include/DTApartamento.h"
+#include "../include/dtos/DTApartamento.h"
 
 DTApartamento::DTApartamento(int codigo, std::string direccion, int numeroPuerta, int superficie, int anioConstruccion, int piso, bool tieneAscensor, float gastosComunes)
     : DTInmueble(codigo, direccion, numeroPuerta, superficie, anioConstruccion) {
@@ -19,6 +19,13 @@ float DTApartamento::getGastosComunes() {
     return gastosComunes;
 }
 
-DTApartamento::~DTApartamento(){
+std::string DTApartamento::getTipoInmueble() const {
+    return "Apartamento";
+}
 
+std::ostream& operator<<(std::ostream& os, const DTApartamento& dt) {
+    os << static_cast<const DTInmueble&>(dt) << ", Piso: " << dt.piso 
+       << ", Tiene Ascensor: " << (dt.tieneAscensor ? "Si" : "No") 
+       << ", Gastos Comunes: " << dt.gastosComunes;
+    return os;
 }

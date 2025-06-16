@@ -1,5 +1,6 @@
 #ifndef DTAPARTAMENTO_H
 #define DTAPARTAMENTO_H
+
 #include "DTInmueble.h"
 
 class DTApartamento : public DTInmueble {
@@ -13,7 +14,8 @@ class DTApartamento : public DTInmueble {
         int getPiso();
         bool getTieneAscensor();
         float getGastosComunes();
-        virtual ~DTApartamento();
+        std::string getTipoInmueble() const override;
+        friend std::ostream& operator<<(std::ostream& os, const DTApartamento& dt);
 };
 
 #endif

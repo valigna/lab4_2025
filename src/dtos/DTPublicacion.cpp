@@ -1,4 +1,4 @@
-#include "../include/DTPublicacion.h"
+#include "../include/dtos/DTPublicacion.h"
 
 DTPublicacion::DTPublicacion(int codigo, DTFecha* fecha, std::string texto, std::string precio, std::string inmobiliaria) {
     this->codigo = codigo;
@@ -26,6 +26,12 @@ std::string DTPublicacion::getPrecio() {
 
 std::string DTPublicacion::getInmobiliaria() {
     return inmobiliaria;
+}
+
+std::ostream& operator<<(std::ostream& os, const DTPublicacion& dt) {
+    os << "Codigo: " << dt.codigo << ", Fecha: " << *dt.fecha << ", Texto: " << dt.texto
+       << ", Precio: " << dt.precio << ", Inmobiliaria: " << dt.inmobiliaria;
+    return os;
 }
 
 DTPublicacion::~DTPublicacion(){

@@ -1,6 +1,8 @@
 #ifndef DTINMUEBLE_H
 #define DTINMUEBLE_H
+
 #include <string>
+#include <iostream>
 
 class DTInmueble {
     private:
@@ -17,6 +19,8 @@ class DTInmueble {
         int getNumeroPuerta();
         int getSuperficie();
         int getAnioConstruccion();
+        virtual std::string getTipoInmueble() = 0;
+        friend std::ostream& operator<<(std::ostream& os, const DTInmueble& dt);
         virtual ~DTInmueble();
 };
 
