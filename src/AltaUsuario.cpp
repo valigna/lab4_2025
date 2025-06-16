@@ -73,9 +73,9 @@ std::set<DTUsuario*> AltaUsuario::listarPropietarios(){
 void AltaUsuario::representarPropietario(std::string nicknamePropietario){
     Usuario* u= ColeccionUsuario::getInstancia().findUsuario(nicknamePropietario);
     Propietario* p = static_cast<Propietario*>(u);
+    Inmobiliaria* i= static_cast<Inmobiliaria*>(AltaUsuario::getUtemp());
     for (Inmueble* inmueble:p->getInmuebles()){
-        AdministraPropiedad* ap= new AdministraPropiedad(Factory::getInstance()->getControladorFechaActual().getFechaActual());
-        Inmobiliaria* i= static_cast<Inmobiliaria*>(AltaUsuario::getUtemp());
+        AdministraPropiedad* ap= new AdministraPropiedad(Factory::getInstance()->getControladorFechaActual()->getFechaActual());
         ap->setInmobiliaria(i);
         ap->setInmueble(inmueble);
     };
