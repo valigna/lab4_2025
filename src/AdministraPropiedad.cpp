@@ -18,11 +18,11 @@ DTFecha* AdministraPropiedad::getFechaIni(){
     return this->fecha;
 }
 
-void setInmobiliaria(Inmobiliaria* i){
+void AdministraPropiedad::setInmobiliaria(Inmobiliaria* i){
     this->inmobiliaria=i;
 }
 
-void setInmueble(Inmueble* in){
+void AdministraPropiedad::setInmueble(Inmueble* in){
     this->inmueble=in;
 }
 
