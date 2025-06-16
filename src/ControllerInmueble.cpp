@@ -30,6 +30,6 @@ void ControllerInmueble::AltaCasa(std::string direccion, int numeroPuerta, int s
 void ControllerInmueble::AltaApartamento(std::string direccion, int numeroPuerta, int superficie, int anoConstruccion, int piso, bool tieneAscensor, float gastosComunes){
     Apartamento* a = new Apartamento(actualizarCodigoInmueble(), direccion, numeroPuerta, superficie, anoConstruccion, piso, tieneAscensor, gastosComunes);
     Propietario* p = static_cast<Propietario*> (Factory::getInstance()->getAltaUsuario()->getUtemp());
-    i->setPropietario(p);
+    a->setPropietario(p);
     p->getInmuebles().insert(a);
 }
