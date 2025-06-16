@@ -48,7 +48,7 @@ bool ControllerPublicacion::AltaPublicacion(std::string nicknameInmobiliaria, in
                 p->activar();
                 ap->setPAlquilerActiva(p);
             }
-            else if (ap->getAlquilerActiva()->getDTFecha()->operator<(f)){
+            else if (ap->getPAlquilerActiva()->getDTFecha()->operator<(f)){
                 ap->getPAlquilerActiva()->desactivar();
                 p->activar();
                 ap->setPAlquilerActiva(p);
@@ -65,7 +65,7 @@ std::set<DTPublicacion*> ControllerPublicacion::listarPublicacion(TipoPublicacio
         if (pub->cumpleFiltros(tipoPublicacion, precioMinimo, precioMaximo) &&
             pub->mismotipo(tipoInmueble)) {
 
-            DTPublicacion dt = pub->getDatos();
+            DTPublicacion* dt = pub->getDatos();
             resultado.insert(dt);
         }
     }
@@ -76,7 +76,8 @@ std::set<DTPublicacion*> ControllerPublicacion::listarPublicacion(TipoPublicacio
 DTInmueble* ControllerPublicacion::detalleInmueblePublicacion(int codigoPublicacion){
     Publicacion* pub = this->publicaciones.find(codigoPublicacion)->second;
     Inmueble* i = pub->getAP()->getInmueble();
-    if ((Casa* casa = dynamic_cast<Casa*>(i))!=NULL){
+    Casa* casa = dynamic_cast<Casa*>(i);
+    if (casa!=NULL){
         return DTCasa(casa->getCodigo(),casa->getDireccion(), casa->getNumeroPuerta(),casa->getSuperficie(),casa->getAnoConstruccion(),casa->getEsPH(),casa->getTecho());
     else{
         Apartamento* apto = dynamic_cast<Apartamento*>(i)
