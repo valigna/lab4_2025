@@ -1,8 +1,17 @@
 #include "../include/ControllerInmueble.h"
 #include "../include/Inmueble.h"
 #include "../include/AltaUsuario.h"
+#include "../include/Factory.h"
 
-ControllerInmueble::ControllerInmueble() : ultimoCodigoInmueble(0) {}
+ControllerInmueble* ControllerInmueble::instancia=NULL;
+
+ControllerInmueble& ControllerInmueble::getInstancia(){
+    if (instancia==NULL){
+        instancia= new ControllerInmueble;
+        instancia->ultimoCodigoInmueble=0;
+    }
+    return ControllerInmueble;
+}
 
 int ControllerInmueble::actualizarCodigoInmueble(){
     return this->ultimoCodigoInmueble+1;

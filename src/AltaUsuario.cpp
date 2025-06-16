@@ -6,7 +6,9 @@
 #include "../include/Casa.h"
 #include "../include/Apartamento.h"
 #include "../include/ControladorFechaActual.h"
+#include "../include/Factory.h"
 
+ColeccionUsuario* ColeccionUsuario::instancia=NULL;
 
 AltaUsuario& AltaUsuario::getInstancia(){
     if (instancia==NULL){
@@ -25,10 +27,10 @@ Usuario* AltaUsuario::getUtemp(){
 }
 
 bool AltaUsuario::altaCliente(std::string nickname, std::string contrasena, std::string nombre, std::string email, std::string apellido, std::string documento){
-    bool t= ColeccionUsuario::existsUsuario(nickname);
+    bool t= ColeccionUsuario::getInstancia().existsUsuario(nickname);
     if (!t){
-        Cliente* c = Cliente(nickname, contrasena, nombre, email, apellido, documento);
-        ColeccionUsuario::getInstancia().add(c);
+        Cliente* c = new Cliente(nickname, contrasena, nombre, email, apellido, documento);
+        ColeccionUsuario::getInstancia().addUsuario(c);
     }
     return t;
 }
@@ -37,7 +39,7 @@ bool AltaUsuario::altaPropietario(std::string nickname, std::string contrasena, 
     bool t= ColeccionUsuario::existsUsuario(nickname);
     if (!t){
         Propietario* p= new Propietario(nickname, contrasena, nombre, email, cuentaBancaria, telefono);
-        ColeccionUsuario::getInstancia().add(p);
+        ColeccionUsuario::getInstancia().addUsuario(p);
         AltaUsuario::guardarReferencia(p);
     }
     return t;
@@ -46,8 +48,8 @@ bool AltaUsuario::altaPropietario(std::string nickname, std::string contrasena, 
 bool AltaUsuario::altaInmobiliaria(std::string nickname, std::string contrasena, std::string nombre, std::string email, std::string direccion, std::string url, std::string telefono){
     bool t= ColeccionUsuario::existsUsuario(nickname);
     if (!t){
-        Inmobiliaria* i= Inmobiliaria(nickname, contrasena, nombre, email, direccion, url, telefono);
-        ColeccionUsuario::getInstancia().add(i);
+        Inmobiliaria* i= new Inmobiliaria(nickname, contrasena, nombre, email, direccion, url, telefono);
+        ColeccionUsuario::getInstancia().addUsuario(i);
         AltaUsuario::guardarReferencia(i);
     }
     return t;
@@ -57,7 +59,7 @@ std::set<DTUsuario*> AltaUsuario::listarPropietarios(){
     std::set<DTUsuario*> p;
     Usuario* primero=ColeccionUsuario::getInstancia().next();
     if (primero==NULL) return p;
-    Usuario* usuario=primero
+    Usuario* usuario=primero;
     do {
         if (dynamic_cast<Propietario*>(usuario)!=NULL){
             p.insert(usuario->getDTUsuario());
@@ -68,13 +70,13 @@ std::set<DTUsuario*> AltaUsuario::listarPropietarios(){
 }
 
 void AltaUsuario::representarPropietario(std::string nicknamePropietario){
-    Propietario* p=ColeccionUsuario::getInstancia().findUsuario(nicknamePropietario);
-    for (Inmueble* inmueble:p.getInmuebles()){
-        AdministraPropiedad* ap= AdministraPropiedad(Factory::getControladorFechaActual().getFechaActual());
-        ap.inmobiliaria=AltaUsuario::getUtemp();
-        ap.inmueble=inmueble;
+    Usuario* p= ColeccionUsuario::getInstancia().findUsuario(nicknamePropietario);
+    for (Inmueble* inmueble:p->getInmuebles()){
+        AdministraPropiedad* ap= new AdministraPropiedad(Factory::getControladorFechaActual().getFechaActual());
+        ap->inmobiliaria=AltaUsuario::getUtemp();
+        ap->inmueble=inmueble;
     };
-    AltaUsuario::getUtemp().getPropietarios().insert(p);
+    AltaUsuario::getUtemp()->getPropietarios().insert(p);
     return;
 }
 
@@ -86,7 +88,7 @@ std::set<DTUsuario*> AltaUsuario::listarInmobiliarias(){
      std::set<DTUsuario*> i;
     Usuario* primero=ColeccionUsuario::getInstancia().next();
     if (primero==NULL) return i;
-    Usuario* usuario=primero
+    Usuario* usuario=primero;
     do {
         if (dynamic_cast<Inmobiliaria*>(usuario)!=NULL){
             i.insert(usuario.getDTUsuario());
@@ -97,8 +99,8 @@ std::set<DTUsuario*> AltaUsuario::listarInmobiliarias(){
 }
 
 std::set<DTInmuebleAdministrado*> AltaUsuario::listarInmueblesAdministrados(std::string nicknameInmobiliaria){
-    std::set<DTInmuebleAdministrado> dtia;
-    Inmobiliaria* i=ColeccionUsuario::getInstancia().findUsuario(nicknameInmobiliaria);
+    std::set<DTInmuebleAdministrado>* dtia;
+    Usuario* i=ColeccionUsuario::getInstancia().findUsuario(nicknameInmobiliaria);
     for (AdministraPropiedad* ap:i.getAPs()){
         dtia.insert(ap->getDTInmuebleAdministrado());
     }
