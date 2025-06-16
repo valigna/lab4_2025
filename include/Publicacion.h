@@ -5,7 +5,8 @@
 #include "DTPublicacion.h"
 #include "TipoInmueble.h"
 #include <string>
-#include "AdministraPropiedad.h"
+
+class AdministraPropiedad; //Forward declaration
 
 class Publicacion {
 private:
