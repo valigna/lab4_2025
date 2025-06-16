@@ -86,8 +86,3 @@ DTInmueble* ControllerPublicacion::detalleInmueblePublicacion(int codigoPublicac
         return new DTApartamento(apto->getCodigo(), apto->getDireccion(), apto->getNumeroPuerta(), apto->getSuperficie(), apto->getAnoConstruccion(), apto->getPiso(), apto->getTieneAscensor(), apto->getGastosComunes());
     }
 }
-
-
-
-    
-
