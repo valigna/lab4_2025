@@ -21,17 +21,17 @@ int ControllerInmueble::actualizarCodigoInmueble(){
 }
 
 void ControllerInmueble::AltaCasa(std::string direccion, int numeroPuerta, int superficie, int anoConstruccion, bool esPH, TipoTecho techo){
-    Casa casa(actualizarCodigoInmueble(), direccion, numeroPuerta, superficie, anoConstruccion, esPH, techo);
+    Casa* c = new casa(actualizarCodigoInmueble(), direccion, numeroPuerta, superficie, anoConstruccion, esPH, techo);
     Propietario* p = static_cast<Propietario*> (Factory::getInstance()->getAltaUsuario()->getUtemp());
-    casa.setPropietario(p);
-    Inmueble* u=casa;
+    c->setPropietario(p);
+    Inmueble* u=c;
     p->getInmuebles().insert(u);
 }
 
 void ControllerInmueble::AltaApartamento(std::string direccion, int numeroPuerta, int superficie, int anoConstruccion, int piso, bool tieneAscensor, float gastosComunes){
-    Apartamento apartamento(actualizarCodigoInmueble(), direccion, numeroPuerta, superficie, anoConstruccion, piso, tieneAscensor, gastosComunes);
+    Apartamento* a = new apartamento(actualizarCodigoInmueble(), direccion, numeroPuerta, superficie, anoConstruccion, piso, tieneAscensor, gastosComunes);
     Propietario* p = static_cast<Propietario*> (Factory::getInstance()->getAltaUsuario()->getUtemp());
-    apartamento.setPropietario(p);
-    Inmueble* i=apartamento;
+    a->setPropietario(p);
+    Inmueble* i=a;
     p->getInmuebles().insert(i);
 }
