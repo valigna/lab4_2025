@@ -3,6 +3,7 @@
 #include "../include/Factory.h"
 #include "../include/Inmueble.h"
 #include "../include/Inmobiliaria.h"
+#include "..include/AdministraPropiedad.h"
 
 ControllerPublicacion& ControllerPublicacion::getInstancia(){
     if (instancia==NULL){
@@ -18,7 +19,7 @@ int ControllerPublicacion::actualizarCodigoUP(){
 }
 
 bool ControllerPublicacion::AltaPublicacion(std::string nicknameInmobiliaria, int codigoInmueble, TipoPublicacion tipoPublicacion, std::string texto, float precio){
-    Inmobiliaria* i=Factory::getInstance()->getColeccionUsuario()->findUsuario(nicknameInmobiliaria);
+    Inmobiliaria* i=ColeccionUsuario::getInstancia()->findUsuario(nicknameInmobiliaria);
     AdministraPropiedad* ap=i->getAP(codigoInmueble);
     DTFecha* f= Factory::getInstance()->getControladorFechaActual()->getFechaActual();
     if (ap->existeTipoPublicacionActual(tipoPublicacion)){
@@ -26,9 +27,9 @@ bool ControllerPublicacion::AltaPublicacion(std::string nicknameInmobiliaria, in
     }
     else {
         int c=ControllerPublicacion::actualizarCodigoUP();
-        Publicacion* p= new publicacion(c, f, tipoPublicacion, texto, precio, false);
+        Publicacion* p= new Publicacion(c, f, tipoPublicacion, texto, precio, false);
         ap->getPublicaciones().insert(p);
-        ControllerPublicacion::getInstancia().publicaciones.insert(p)}; 
+        ControllerPublicacion::getInstancia().publicaciones.insert{c, p}; 
         p.setAP(ap);
         if (tipoPublicacion==Venta){
             if (ap->getPVentaActiva()==NULL){
