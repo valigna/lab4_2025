@@ -4,7 +4,7 @@
 #include <string>
 #include "TipoPublicacion.h"
 #include "TipoInmueble.h"
-#include "IControllerPublicacion"
+#include "IControllerPublicacion.h"
 #include "DTInmueble.h"
 #include "DTPublicacion"
 #include <map>
