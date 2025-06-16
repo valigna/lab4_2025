@@ -10,7 +10,7 @@ class ControllerInmueble : public IControllerInmueble{
         int ultimoCodigoInmueble;
         static ControllerInmueble* instancia;
     public:
-        ControllerInmueble& getInstancia()
+        ControllerInmueble& getInstancia();
         ControllerInmueble();
         ~ControllerInmueble();
         int actualizarCodigoInmueble();

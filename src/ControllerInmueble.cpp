@@ -3,6 +3,7 @@
 #include "../include/AltaUsuario.h"
 #include "../include/Factory.h"
 #include "../include/Casa.h"
+#include "../include/Propietario.h"
 
 ControllerInmueble* ControllerInmueble::instancia=NULL;
 
@@ -21,13 +22,13 @@ int ControllerInmueble::actualizarCodigoInmueble(){
 void ControllerInmueble::AltaCasa(std::string direccion, int numeroPuerta, int superficie, int anoConstruccion, bool esPH, TipoTecho techo){
     Casa casa(actualizarCodigoInmueble(), direccion, numeroPuerta, superficie, anoConstruccion, esPH, techo);
     Propietario* p = static_cast<Propietario*> (Factory::getInstance()->getAltaUsuario()->getUtemp());
-    Inmueble::setPropietario(p);
+    casa->setPropietario(p);
     p->getInmuebles()->insert(casa);
 }
 
 void ControllerInmueble::AltaApartamento(std::string direccion, int numeroPuerta, int superficie, int anoConstruccion, int piso, bool tieneAscensor, float gastosComunes){
     Apartamento apartamento(actualizarCodigoInmueble(), direccion, numeroPuerta, superficie, anoConstruccion, piso, tieneAscensor, gastosComunes);
     Propietario* p = static_cast<Propietario*> (Factory::getInstance()->getAltaUsuario()->getUtemp());
-    Inmueble::setPropietario(p);
+    apartamento->setPropietario(p);
     p->getInmuebles()->insert(apartamento);
 }
