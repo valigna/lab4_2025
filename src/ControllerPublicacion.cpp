@@ -1,6 +1,7 @@
 #include <string>
 #include "../include/ControllerPublicacion.h"
 #include "../include/Publicacion.h"
+#include "../include/Factory.h"
 
 ControllerPublicacion& ControllerPublicacion::getInstancia(){
     if (instancia==NULL){
@@ -16,7 +17,7 @@ int ControllerPublicacion::actualizarCodigoUP(){
 }
 
 bool ControllerPublicacion::AltaPublicacion(std::string nicknameInmobiliaria, int codigoInmueble, TipoPublicacion tipoPublicacion, std::string texto, float precio){
-    Inmobiliaria* i=Factory::getAltaUsuario().find(nicknameInmobiliaria);
+    Inmobiliaria* i=Factory::getInstance()->getAltaUsuario()->find(nicknameInmobiliaria);
     AdministraPropiedad ap =i.getAP(codigoInmueble);
     DTFecha* f= Factory::getControladorFechaActual().getFechaActual();
     if (ap.existeTipoPublicacionActual(tipoPublicacion)){
@@ -26,7 +27,7 @@ bool ControllerPublicacion::AltaPublicacion(std::string nicknameInmobiliaria, in
         int c=ControllerPublicacion::actualizarCodigoUP();
         Publicacion p(c, f, tipoPublicacion, texto, precio, false);
         ap.getPublicaciones().insert(p);
-        ControllerPublicacion::getInstancia().publicaciones.insert{c, *p}; 
+        ControllerPublicacion::getInstancia()->publicaciones.insert{c, *p}; 
         p.setAP(ap);
         if (tipoPublicacion==Venta){
             if (ap.getPVentaActiva()==NULL){

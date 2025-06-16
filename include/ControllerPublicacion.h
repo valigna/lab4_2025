@@ -2,12 +2,14 @@
 #define CONTROLLERPUBLICACION_H
 
 #include <string>
+#include <map>
+#include <set>
 #include "TipoPublicacion.h"
 #include "TipoInmueble.h"
 #include "IControllerPublicacion.h"
+#include "Publicacion.h"
 #include "DTInmueble.h"
 #include "DTPublicacion.h"
-#include <map>
 
 class ControllerPublicacion : public IControllerPublicacion{
     private:
