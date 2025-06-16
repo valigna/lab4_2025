@@ -3,7 +3,7 @@
 
 #include <string>
 #include "TipoTecho.h"
-#include "IControllerInmueble"
+#include "IControllerInmueble.h"
 
 class ControllerInmueble : public IControllerInmueble{
     private:
