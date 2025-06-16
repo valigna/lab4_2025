@@ -6,7 +6,7 @@
 #include "TipoInmueble.h"
 #include "IControllerPublicacion.h"
 #include "DTInmueble.h"
-#include "DTPublicacion"
+#include "DTPublicacion.h"
 #include <map>
 
 class ControllerPublicacion : public IControllerPublicacion{
