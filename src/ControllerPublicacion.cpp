@@ -5,6 +5,8 @@
 #include "../include/Inmobiliaria.h"
 #include "../include/AdministraPropiedad.h"
 #include "../include/ColeccionUsuario.h"
+#include "../include/Casa.h"
+#include "../include/Apartamento.h"
 
 ControllerPublicacion& ControllerPublicacion::getInstancia(){
     if (instancia==NULL){
@@ -80,7 +82,7 @@ DTInmueble* ControllerPublicacion::detalleInmueblePublicacion(int codigoPublicac
     if (casa!=NULL){
         return DTCasa(casa->getCodigo(),casa->getDireccion(), casa->getNumeroPuerta(),casa->getSuperficie(),casa->getAnoConstruccion(),casa->getEsPH(),casa->getTecho());
     else{
-        Apartamento* apto = dynamic_cast<Apartamento*>(i)
+        Apartamento* apto = dynamic_cast<Apartamento*>(i);
         return DTApartamento(apto->getCodigo(),apto->getDireccion(),apto->getNumeroPuerta(), apto->getSuperficie(),apto->getAnoConstruccion(),apto->getPiso(),apto->getTieneAscensor(), apto->getGastosComunes() );
         }
     }
