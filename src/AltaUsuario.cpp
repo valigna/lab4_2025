@@ -13,7 +13,7 @@ AltaUsuario& AltaUsuario::getInstancia(){
         instancia= new AltaUsuario;
         instancia->Utemp=NULL;
     }
-    return *AltaUsuario;
+    return AltaUsuario;
 }
 
 void AltaUsuario::guardarReferencia(Usuario* u){
@@ -25,30 +25,30 @@ Usuario* AltaUsuario::getUtemp(){
 }
 
 bool AltaUsuario::altaCliente(std::string nickname, std::string contrasena, std::string nombre, std::string email, std::string apellido, std::string documento){
-    bool t= ColeccionUsuario::exists(nickname);
+    bool t= ColeccionUsuario::existsUsuario(nickname);
     if (!t){
-        Cliente cliente(nickname, contrasena, nombre, email, apellido, documento);
-        ColeccionUsuario::getInstancia().add(cliente);
+        Cliente* c = Cliente(nickname, contrasena, nombre, email, apellido, documento);
+        ColeccionUsuario::getInstancia().add(c);
     }
     return t;
 }
 
 bool AltaUsuario::altaPropietario(std::string nickname, std::string contrasena, std::string nombre, std::string email, std::string cuentaBancaria, std::string telefono){
-    bool t= ColeccionUsuario::exists(nickname);
+    bool t= ColeccionUsuario::existsUsuario(nickname);
     if (!t){
-        Propietario propietario(nickname, contrasena, nombre, email, cuentaBancaria, telefono);
-        ColeccionUsuario::getInstancia().add(propietario);
-        AltaUsuario::guardarReferencia(propietario);
+        Propietario* p= new Propietario(nickname, contrasena, nombre, email, cuentaBancaria, telefono);
+        ColeccionUsuario::getInstancia().add(p);
+        AltaUsuario::guardarReferencia(p);
     }
     return t;
 }
 
 bool AltaUsuario::altaInmobiliaria(std::string nickname, std::string contrasena, std::string nombre, std::string email, std::string direccion, std::string url, std::string telefono){
-    bool t= ColeccionUsuario::exists(nickname);
+    bool t= ColeccionUsuario::existsUsuario(nickname);
     if (!t){
-        Inmobiliaria inmobiliaria(nickname, contrasena, nombre, email, direccion, url, telefono);
-        ColeccionUsuario::getInstancia().add(inmobiliaria);
-        AltaUsuario::guardarReferencia(inmobiliaria);
+        Inmobiliaria* i= Inmobiliaria(nickname, contrasena, nombre, email, direccion, url, telefono);
+        ColeccionUsuario::getInstancia().add(i);
+        AltaUsuario::guardarReferencia(i);
     }
     return t;
 }

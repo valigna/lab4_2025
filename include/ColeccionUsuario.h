@@ -13,7 +13,7 @@ class ColeccionUsuario {
         std::set<Usuario*>::iterator itUsuarios;
         ColeccionUsuario();
         ColeccionUsuario(const ColeccionUsuario&) = delete;
-        ColeccionUsuario& operator=(const ColeccionUsuario&) = delete
+        ColeccionUsuario& operator=(const ColeccionUsuario&) = delete;
 
     public:
         Usuario* next();

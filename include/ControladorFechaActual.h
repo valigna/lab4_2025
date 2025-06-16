@@ -2,6 +2,7 @@
 #define CONTROLADORFECHAACTUAL_H
 
 #include "DTFecha.h"
+#include "IControladorFechaActual.h"
 
 class ControladorFechaActual : public IControladorFechaActual{
     private:
