@@ -3,6 +3,11 @@
 
 #include <string>
 #include "TipoPublicacion.h"
+#include "TipoInmueble.h"
+#include "IControllerPublicacion"
+#include "DTInmueble.h"
+#include "DTPublicacion"
+#include <map>
 
 class ControllerPublicacion : public IControllerPublicacion{
     private:
@@ -14,8 +19,8 @@ class ControllerPublicacion : public IControllerPublicacion{
         static ControllerPublicacion& getInstancia();
         bool AltaPublicacion(std::string nicknameInmobiliaria, int codigoInmueble, TipoPublicacion tipoPublicacion, std::string texto, float precio);
         int actualizarCodigoUP();
-     set<DTPublicacion> listarPublicacion(tipoPublicacion TipoPublicacion,precionMinimo float, precioMaximo float,tipoInmueble TipoInmueble);
-    DTInmueble detalleInmueblePublicacion(codigoPublicacion int);
+        std::set<DTPublicacion*> listarPublicacion(TipoPublicacion tipoPublicacion, float precionMinimo, float precioMaximo, TipoInmueble tipoInmueble);
+        DTInmueble* detalleInmueblePublicacion(int codigoPublicacion);
  
 
 };
