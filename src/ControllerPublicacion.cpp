@@ -3,7 +3,7 @@
 #include "../include/Factory.h"
 #include "../include/Inmueble.h"
 #include "../include/Inmobiliaria.h"
-#include "..include/AdministraPropiedad.h"
+#include "../include/AdministraPropiedad.h"
 
 ControllerPublicacion& ControllerPublicacion::getInstancia(){
     if (instancia==NULL){
