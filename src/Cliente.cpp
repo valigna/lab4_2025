@@ -4,5 +4,5 @@ Cliente::Cliente(std::string nickname, std::string contrasena, std::string nombr
     : Usuario(nickname, contrasena, nombre, email),
     apellido(apellido),
     documento(documento)
-
+{}
 
