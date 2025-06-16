@@ -78,11 +78,10 @@ std::set<DTPublicacion*> ControllerPublicacion::listarPublicacion(TipoPublicacio
 DTInmueble* ControllerPublicacion::detalleInmueblePublicacion(int codigoPublicacion){
     Publicacion* pub = this->publicaciones.find(codigoPublicacion)->second;
     Inmueble* i = pub->getAP()->getInmueble();
-    Casa* casa = dynamic_cast<Casa*>(i);
-    if (casa!=NULL){
-        return DTCasa(casa->getCodigo(),casa->getDireccion(), casa->getNumeroPuerta(),casa->getSuperficie(),casa->getAnoConstruccion(),casa->getEsPH(),casa->getTecho());
+    if (dynamic_cast<Casa*>(i)!=NULL){
+        return DTCasa(i->getCodigo(),i->getDireccion(), i->getNumeroPuerta(),i->getSuperficie(),i->getAnoConstruccion(),i->getEsPH(),i->getTecho());
     else{
-        Apartamento* apto = dynamic_cast<Apartamento*>(i);
+        Apartamento* apto = static_cast<Apartamento*>(i);
         return DTApartamento(apto->getCodigo(),apto->getDireccion(),apto->getNumeroPuerta(), apto->getSuperficie(),apto->getAnoConstruccion(),apto->getPiso(),apto->getTieneAscensor(), apto->getGastosComunes() );
         }
     }
