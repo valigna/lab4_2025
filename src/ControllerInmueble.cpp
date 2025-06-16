@@ -24,12 +24,12 @@ void ControllerInmueble::AltaCasa(std::string direccion, int numeroPuerta, int s
     Casa casa(actualizarCodigoInmueble(), direccion, numeroPuerta, superficie, anoConstruccion, esPH, techo);
     Propietario* p = static_cast<Propietario*> (Factory::getInstance()->getAltaUsuario()->getUtemp());
     casa.setPropietario(p);
-    p.getInmuebles()->insert(casa);
+    p->getInmuebles()->insert(casa);
 }
 
 void ControllerInmueble::AltaApartamento(std::string direccion, int numeroPuerta, int superficie, int anoConstruccion, int piso, bool tieneAscensor, float gastosComunes){
     Apartamento apartamento(actualizarCodigoInmueble(), direccion, numeroPuerta, superficie, anoConstruccion, piso, tieneAscensor, gastosComunes);
     Propietario* p = static_cast<Propietario*> (Factory::getInstance()->getAltaUsuario()->getUtemp());
-    apartamento->setPropietario(p);
-    p.getInmuebles()->insert(apartamento);
+    apartamento.setPropietario(p);
+    p->getInmuebles()->insert(apartamento);
 }
