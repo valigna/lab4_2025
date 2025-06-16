@@ -18,9 +18,9 @@ int ControllerPublicacion::actualizarCodigoUP(){
 }
 
 bool ControllerPublicacion::AltaPublicacion(std::string nicknameInmobiliaria, int codigoInmueble, TipoPublicacion tipoPublicacion, std::string texto, float precio){
-    Inmobiliaria* i=Factory::getInstance()->getAltaUsuario()->find(nicknameInmobiliaria);
-    AdministraPropiedad ap =i.getAP(codigoInmueble);
-    DTFecha* f= Factory::getControladorFechaActual().getFechaActual();
+    Inmobiliaria* i=Factory::getInstance()->getAltaUsuario()->findUsuario(nicknameInmobiliaria);
+    AdministraPropiedad* ap=i->getAP(codigoInmueble);
+    DTFecha* f= Factory::getInstance()->getControladorFechaActual()->getFechaActual();
     if (ap.existeTipoPublicacionActual(tipoPublicacion)){
         return false;
     }
@@ -28,7 +28,7 @@ bool ControllerPublicacion::AltaPublicacion(std::string nicknameInmobiliaria, in
         int c=ControllerPublicacion::actualizarCodigoUP();
         Publicacion p(c, f, tipoPublicacion, texto, precio, false);
         ap.getPublicaciones().insert(p);
-        ControllerPublicacion::getInstancia()->publicaciones.insert{c, *p}; 
+        ControllerPublicacion::getInstancia().publicaciones.insert{c, *p}; 
         p.setAP(ap);
         if (tipoPublicacion==Venta){
             if (ap.getPVentaActiva()==NULL){
@@ -55,8 +55,9 @@ bool ControllerPublicacion::AltaPublicacion(std::string nicknameInmobiliaria, in
         return true;
     }
 }
-et<DTPublicacion> ControllerPublicacion::listarPublicacion(tipoPublicacion: TipoPublicacion,precionMinimo: float, precioMaximo: float,tipoInmueble: TipoInmueble);
-{    std::set<DTPublicacion> resultado;
+
+std::set<DTPublicacion> ControllerPublicacion::listarPublicacion(TipoPublicacion tipoPublicacion, float precionMinimo, float precioMaximo, TipoInmueble tipoInmueble){  
+    std::set<DTPublicacion> resultado;
     for (Publicacion* pub : this->publicaciones) {
         if (pub->cumpleFiltros(tipoPublicacion, precioMinimo, precioMaximo) &&
             pub->mismotipo(tipoInmueble)) {
@@ -68,12 +69,15 @@ et<DTPublicacion> ControllerPublicacion::listarPublicacion(tipoPublicacion: Tipo
 
     return resultado;
 }
-DTInmueble ControllerPublicacion::detalleInmueblePublicacion(codigoPublicacion int) {
-      Publicacion* pub = this->publicaciones.find(codigoPublicacion)->second;
-i *inmueble = pub->AP->inmueble
-    if (Casa* casa = dynamic_cast<Casa*>(i)) {
-        return DTCasa(casa->getCodigo(),casa->getDireccion(), casa->getNumeroPuerta(),casa->getSuperficie(),casa->getAnoConstruccion(),casa->getEsPH(),casa->getTecho());}
-            else {
-        return DTApartamento(apto->getCodigo(),apto->getDireccion(),apto->getNumeroPuerta(), apto->getSuperficie(),apto->getAnoConstruccion(),apto->getPiso(),apto->getTieneAscensor(), apto->getGastosComunes() );}}
+
+DTInmueble* ControllerPublicacion::detalleInmueblePublicacion(int codigoPublicacion){
+    Publicacion* pub = this->publicaciones.find(codigoPublicacion)->second;
+    i *inmueble = pub->AP->inmueble
+    if (Casa* casa = dynamic_cast<Casa*>(i)) 
+        return DTCasa(casa->getCodigo(),casa->getDireccion(), casa->getNumeroPuerta(),casa->getSuperficie(),casa->getAnoConstruccion(),casa->getEsPH(),casa->getTecho());
+        else
+        return DTApartamento(apto->getCodigo(),apto->getDireccion(),apto->getNumeroPuerta(), apto->getSuperficie(),apto->getAnoConstruccion(),apto->getPiso(),apto->getTieneAscensor(), apto->getGastosComunes() );
+}
+
     
 
