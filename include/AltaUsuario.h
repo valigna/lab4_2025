@@ -6,6 +6,7 @@
 #include "Usuario.h"
 #include "TipoTecho.h"
 #include "IAltaUsuario.h"
+#include "IObservers.h"
 
 class AltaUsuario : public IAltaUsuario{
     private:

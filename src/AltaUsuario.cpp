@@ -109,3 +109,25 @@ std::set<DTInmuebleAdministrado*> AltaUsuario::listarInmueblesAdministrados(std:
     }
     return dtia;
 }
+
+std::set<DTUsuario*> listarNoSuscripciones(std::string nick) {
+	std::set<DTUsuario*> inmobiliarias;
+	Usuario* primero = ColeccionUsuario::getInstancia().next();
+	if (primero == NULL) return inmobiliarias;
+	Usuario* usuario = primero;
+	do {
+		if (dynamic_cast<Inmobiliaria*>(usuario) != NULL) {
+			//if nick not exists en usuario.observers
+			//agregar a inmobiliarias
+		}
+		usuario = ColeccionUsuario::getInstancia().next();
+	} while (usuario != primero);
+	return inmobiliarias;
+}
+
+void agregarSuscripciones(std::set<std::string> nicksInmobiliarias) {
+	for (std::string nick: nicksInmobiliarias) {/*
+		Inmobiliaria* inmobiliaria = ColeccionUsuario::getInstancia().findUsuario(nick);
+		inmobiliaria->suscribir(AltaUsuario::getUtemp);*/
+	}
+}	
