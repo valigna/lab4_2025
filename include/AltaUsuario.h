@@ -7,27 +7,37 @@
 #include "TipoTecho.h"
 #include "IAltaUsuario.h"
 #include "IObservers.h"
+#include "DTUsuario.h"
+#include "DTInmuebleAdministrado.h"
 
-class AltaUsuario : public IAltaUsuario{
-    private:
-        Usuario* Utemp;
-        static AltaUsuario* instancia;
-        AltaUsuario();
-    public:
-        AltaUsuario& getInstancia();
-        void guardarReferencia(Usuario* u);
-        Usuario* getUtemp();
-        bool altaCliente(std::string nickname, std::string contrasena, std::string nombre, std::string email, std::string apellido, std::string documento); //PRE: contrasena tiene 6 >= caracteres
-        bool altaPropietario(std::string nickname, std::string contrasena, std::string nombre, std::string email, std::string cuentaBancaria, std::string telefono); //PRE: contrasena tiene 6 >= caracteres
-        bool altaInmobiliaria(std::string nickname, std::string contrasena, std::string nombre, std::string email, std::string direccion, std::string url, std::string telefono); //PRE: contrasena tiene 6 >= caracteres
-        std::set<DTUsuario*> listarPropietarios();
-        void representarPropietario(std::string nicknamePropietario); //PRE Utemp!=NULL y Utemp es una instancia de Inmobiliaria
-        void finalizarAltaUsuario();
-        std::set<DTUsuario*> listarInmobiliarias();
-        std::set<DTInmuebleAdministrado*> listarInmueblesAdministrados(std::string nicknameInmobiliaria); //PRE Existe una instancia de Inmobiliaria i con nickname=nicknameInmobiliaria
-        std::set<DTUsuario*> listarNoSuscripciones(std::string nick);
-        void agregarSuscripciones(std::set<std::string> nicksInmobiliarias);
-        ~AltaUsuario();
+class AltaUsuario : public IAltaUsuario {
+private:
+    Usuario* Utemp;
+    static AltaUsuario* instancia;
+    AltaUsuario();
+
+public:
+    static AltaUsuario& getInstancia();
+    ~AltaUsuario();
+    
+    void guardarReferencia(Usuario* u);
+    Usuario* getUtemp();
+    
+    bool altaCliente(std::string nickname, std::string contrasena, std::string nombre, 
+                     std::string email, std::string apellido, std::string documento);
+    bool altaPropietario(std::string nickname, std::string contrasena, std::string nombre, 
+                        std::string email, std::string cuentaBancaria, std::string telefono);
+    bool altaInmobiliaria(std::string nickname, std::string contrasena, std::string nombre, 
+                         std::string email, std::string direccion, std::string url, std::string telefono);
+    
+    std::set<DTUsuario*> listarPropietarios();
+    std::set<DTUsuario*> listarInmobiliarias();
+    void representarPropietario(std::string nicknamePropietario);
+    void finalizarAltaUsuario();
+    
+    std::set<DTInmuebleAdministrado*> listarInmueblesAdministrados(std::string nicknameInmobiliaria);
+    std::set<DTUsuario*> listarNoSuscripciones(std::string nick);
+    void agregarSuscripciones(std::set<std::string> nicksInmobiliarias);
 };
 
 #endif

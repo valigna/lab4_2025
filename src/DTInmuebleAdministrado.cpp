@@ -1,9 +1,10 @@
 #include "../include/DTInmuebleAdministrado.h"
 
-DTInmuebleAdministrado::DTInmuebleAdministrado(int codigo, std::string direccion, DTFecha* fechaComienzo) {
-    this->codigo = codigo;
-    this->direccion = direccion;
-    this->fechaComienzo = new DTFecha(fechaComienzo);
+DTInmuebleAdministrado::DTInmuebleAdministrado(int codigo, std::string direccion, 
+                                             DTFecha* fechaComienzo)
+    : codigo(codigo),
+      direccion(direccion),
+      fechaComienzo(new DTFecha(fechaComienzo)) {
 }
 
 int DTInmuebleAdministrado::getCodigo() {
@@ -18,6 +19,6 @@ DTFecha* DTInmuebleAdministrado::getFechaComienzo() {
     return fechaComienzo;
 }
 
-DTInmuebleAdministrado::~DTInmuebleAdministrado(){
+DTInmuebleAdministrado::~DTInmuebleAdministrado() {
     delete fechaComienzo;
 }

@@ -1,26 +1,50 @@
 #include "../include/Inmueble.h"
+
 Inmueble::Inmueble(int codigo, std::string direccion, int numeroPuerta,
-                   int superficie, int anoConstruccion, Propietario* propietario)
+                   int superficie, int anioConstruccion)
     : codigo(codigo),
       direccion(direccion),
       numeroPuerta(numeroPuerta),
       superficie(superficie),
-      anoConstruccion(anoConstruccion),
-      propietario(propietario),
-     {}
+      anioConstruccion(anioConstruccion),
+      propietario(NULL) {
+}
 
-int Inmueble::getCodigo(){
+Inmueble::~Inmueble() {
+}
+
+int Inmueble::getCodigo() {
     return this->codigo;
 }
 
-std::set<AdministraPropiedad*> Inmueble::getAPs(){
-    return this->APs;
-}
-
-std::string Inmueble::getDireccion(){
+std::string Inmueble::getDireccion() {
     return this->direccion;
 }
 
-void Inmueble::setPropietario(Propietario* propietario){
-    this->propietario=propietario;
+int Inmueble::getNumeroPuerta() {
+    return this->numeroPuerta;
+}
+
+int Inmueble::getSuperficie() {
+    return this->superficie;
+}
+
+int Inmueble::getAnioConstruccion() {
+    return this->anioConstruccion;
+}
+
+Propietario* Inmueble::getPropietario() {
+    return this->propietario;
+}
+
+void Inmueble::setPropietario(Propietario* propietario) {
+    this->propietario = propietario;
+}
+
+std::set<AdministraPropiedad*>& Inmueble::getAPs() {
+    return this->APs;
+}
+
+void Inmueble::agregarAP(AdministraPropiedad* ap) {
+    this->APs.insert(ap);
 }

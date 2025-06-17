@@ -1,62 +1,71 @@
 #include "../include/AdministraPropiedad.h"
 #include "../include/Factory.h"
-#include "../include/ControladorFechaActual.h"
 
-AdministraPropiedad::AdministraPropiedad(DTFecha* fecha){
-    this->fecha=fecha;
+AdministraPropiedad::AdministraPropiedad(DTFecha* fecha)
+    : fecha(new DTFecha(fecha)),
+      inmobiliaria(NULL),
+      inmueble(NULL),
+      PVentaActiva(NULL),
+      PAlquilerActiva(NULL) {
 }
 
-Inmobiliaria* AdministraPropiedad::getInmobiliaria(){
+AdministraPropiedad::~AdministraPropiedad() {
+    delete fecha;
+}
+
+Inmobiliaria* AdministraPropiedad::getInmobiliaria() {
     return this->inmobiliaria;
 }
 
-Inmueble* AdministraPropiedad::getInmueble(){
+void AdministraPropiedad::setInmobiliaria(Inmobiliaria* i) {
+    this->inmobiliaria = i;
+}
+
+Inmueble* AdministraPropiedad::getInmueble() {
     return this->inmueble;
 }
 
-DTFecha* AdministraPropiedad::getFechaIni(){
+void AdministraPropiedad::setInmueble(Inmueble* in) {
+    this->inmueble = in;
+}
+
+DTFecha* AdministraPropiedad::getFechaIni() {
     return this->fecha;
 }
 
-void AdministraPropiedad::setInmobiliaria(Inmobiliaria* i){
-    this->inmobiliaria=i;
-}
-
-void AdministraPropiedad::setInmueble(Inmueble* in){
-    this->inmueble=in;
-}
-
-DTInmuebleAdministrado* AdministraPropiedad::getDTInmuebleAdministrado(){
-    Inmueble* i= AdministraPropiedad::getInmueble();
-    DTInmuebleAdministrado* dtia= new DTInmuebleAdministrado(i->getCodigo(), i->getDireccion(), AdministraPropiedad::getFechaIni());
+DTInmuebleAdministrado* AdministraPropiedad::getDTInmuebleAdministrado() {
+    Inmueble* i = this->getInmueble();
+    DTInmuebleAdministrado* dtia = new DTInmuebleAdministrado(i->getCodigo(), 
+                                                            i->getDireccion(), 
+                                                            this->getFechaIni());
     return dtia;
 }
 
-bool AdministraPropiedad::existeTipoPublicacionActual(TipoPublicacion tipoPublicacion){
-    DTFecha* f= Factory::getInstance()->getControladorFechaActual()->getFechaActual();
-    if (tipoPublicacion==Venta){
-        return this->PVentaActiva->getDTFecha()==f;
-    }
-    else {
-        return this->PAlquilerActiva->getDTFecha()==f;
-    }
-}
-
-std::set<Publicacion*> AdministraPropiedad::getPublicaciones(){
+std::set<Publicacion*> AdministraPropiedad::getPublicaciones() {
     return this->publicaciones;
 }
 
-Publicacion* AdministraPropiedad::getPVentaActiva(){
+bool AdministraPropiedad::existeTipoPublicacionActual(TipoPublicacion tipoPublicacion) {
+    DTFecha* f = Factory::getInstance()->getControladorFechaActual()->getFechaActual();
+    if (tipoPublicacion == Venta) {
+        return this->PVentaActiva != NULL && *(this->PVentaActiva->getDTFecha()) == f;
+    } else {
+        return this->PAlquilerActiva != NULL && *(this->PAlquilerActiva->getDTFecha()) == f;
+    }
+}
+
+Publicacion* AdministraPropiedad::getPVentaActiva() {
     return this->PVentaActiva;
 }
 
-Publicacion* AdministraPropiedad::getPAlquilerActiva(){
+void AdministraPropiedad::setPVentaActiva(Publicacion* p) {
+    this->PVentaActiva = p;
+}
+
+Publicacion* AdministraPropiedad::getPAlquilerActiva() {
     return this->PAlquilerActiva;
 }
 
-void AdministraPropiedad::setPVentaActiva(Publicacion* p){
-    this->PVentaActiva=p;
-}
-void AdministraPropiedad::setPAlquilerActiva(Publicacion* p){
-    this->PAlquilerActiva=p;
+void AdministraPropiedad::setPAlquilerActiva(Publicacion* p) {
+    this->PAlquilerActiva = p;
 }

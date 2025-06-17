@@ -1,9 +1,8 @@
 #include "../include/DTUsuario.h"
 #include <iostream>
 
-DTUsuario::DTUsuario(std::string nickname, std::string nombre) {
-    this->nickname = nickname;
-    this->nombre = nombre;
+DTUsuario::DTUsuario(std::string nickname, std::string nombre)
+    : nickname(nickname), nombre(nombre) {
 }
 
 std::string DTUsuario::getNickname() {
@@ -15,5 +14,5 @@ std::string DTUsuario::getNombre() {
 }
 
 bool DTUsuario::operator<(DTUsuario& other) {
-    return nickname < other.nickname; // Comparar directamente los campo
+    return nickname < other.nickname;
 }

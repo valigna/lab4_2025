@@ -7,33 +7,42 @@
 #include "Publicacion.h"
 #include "DTInmuebleAdministrado.h"
 #include "TipoPublicacion.h"
-#include <set>
 #include "Casa.h"
 #include "Apartamento.h"
+#include <set>
 
 class AdministraPropiedad {
-    private:
-        DTFecha* fecha;
-        Inmobiliaria* inmobiliaria;
-        Inmueble* inmueble;
-        std::set<Publicacion*> publicaciones;
-        Publicacion* PVentaActiva;
-        Publicacion* PAlquilerActiva;
-    public:
-        AdministraPropiedad(DTFecha* fecha);
-        ~AdministraPropiedad();
-        Inmobiliaria* getInmobiliaria();
-        Inmueble* getInmueble();
-        DTInmuebleAdministrado* getDTInmuebleAdministrado();
-        DTFecha* getFechaIni();
-        void setInmobiliaria(Inmobiliaria* i);
-        void setInmueble(Inmueble* in);
-        bool existeTipoPublicacionActual(TipoPublicacion tipoPublicacion);
-        std::set<Publicacion*> getPublicaciones();
-        Publicacion* getPVentaActiva();
-        Publicacion* getPAlquilerActiva();
-        void setPVentaActiva(Publicacion* p);
-        void setPAlquilerActiva(Publicacion* p);
+private:
+    DTFecha* fecha;
+    Inmobiliaria* inmobiliaria;
+    Inmueble* inmueble;
+    std::set<Publicacion*> publicaciones;
+    Publicacion* PVentaActiva;
+    Publicacion* PAlquilerActiva;
+
+public:
+    AdministraPropiedad(DTFecha* fecha);
+    ~AdministraPropiedad();
+    
+    // Getters y Setters básicos
+    Inmobiliaria* getInmobiliaria();
+    void setInmobiliaria(Inmobiliaria* i);
+    
+    Inmueble* getInmueble();
+    void setInmueble(Inmueble* in);
+    
+    DTFecha* getFechaIni();
+    DTInmuebleAdministrado* getDTInmuebleAdministrado();
+    
+    // Manejo de publicaciones
+    std::set<Publicacion*> getPublicaciones();
+    bool existeTipoPublicacionActual(TipoPublicacion tipoPublicacion);
+    
+    Publicacion* getPVentaActiva();
+    void setPVentaActiva(Publicacion* p);
+    
+    Publicacion* getPAlquilerActiva();
+    void setPAlquilerActiva(Publicacion* p);
 };
 
 #endif

@@ -1,9 +1,10 @@
 #include "../include/DTCasa.h"
 
-DTCasa::DTCasa(int codigo, std::string direccion, int numeroPuerta, int superficie, int anioConstruccion, bool esPH, TipoTecho techo)
-    : DTInmueble(codigo, direccion, numeroPuerta, superficie, anioConstruccion) {
-    this->esPH = esPH;
-    this->techo = techo;
+DTCasa::DTCasa(int codigo, std::string direccion, int numeroPuerta, 
+               int superficie, int anioConstruccion, bool esPH, TipoTecho techo)
+    : DTInmueble(codigo, direccion, numeroPuerta, superficie, anioConstruccion),
+      esPH(esPH),
+      techo(techo) {
 }
 
 bool DTCasa::getEsPH() {
@@ -14,6 +15,5 @@ TipoTecho DTCasa::getTecho() {
     return techo;
 }
 
-DTCasa::~DTCasa(){
-    
+DTCasa::~DTCasa() {
 }

@@ -4,7 +4,12 @@
 ControladorFechaActual* ControladorFechaActual::instance = NULL;
 
 ControladorFechaActual::ControladorFechaActual() {
-    fechaActual = new DTFecha(1,1,1900);
+    fechaActual = new DTFecha(1, 1, 1900);
+}
+
+ControladorFechaActual::~ControladorFechaActual() {
+    delete fechaActual;
+    instance = NULL;
 }
 
 ControladorFechaActual* ControladorFechaActual::getInstance() {
@@ -14,15 +19,11 @@ ControladorFechaActual* ControladorFechaActual::getInstance() {
     return instance;
 }
 
-DTFecha* ControladorFechaActual::getFechaActual(){
+DTFecha* ControladorFechaActual::getFechaActual() {
     return new DTFecha(fechaActual);
 }
-void ControladorFechaActual::setNewFechaActual(int dia, int mes, int anio){
+
+void ControladorFechaActual::setNewFechaActual(int dia, int mes, int anio) {
     delete fechaActual;
     fechaActual = new DTFecha(dia, mes, anio);
-}
-
-ControladorFechaActual::~ControladorFechaActual(){
-    delete fechaActual;
-    instance = NULL;
 }
