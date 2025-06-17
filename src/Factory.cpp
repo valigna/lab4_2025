@@ -10,6 +10,9 @@ Factory* Factory::instance = NULL;
 Factory::Factory() {
 }
 
+Factory::~Factory() {
+}
+
 Factory* Factory::getInstance() {
     if (instance == NULL) {
         instance = new Factory();
@@ -17,18 +20,18 @@ Factory* Factory::getInstance() {
     return instance;
 }
 
-IControladorFechaActual* Factory::getControladorFechaActual(){
+IControladorFechaActual* Factory::getControladorFechaActual() {
     return ControladorFechaActual::getInstance();
 }
 
-IControladorAltaUsuario* Factory::getAltaUsuario(){
-    return AltaUsuario::getInstancia();
+IAltaUsuario* Factory::getAltaUsuario() {
+    return &AltaUsuario::getInstancia();
 }
 
-IControllerPublicacion* Factory::getControllerPublicacion(){
-    return ControllerPublicacion::getInstancia();
+IControllerPublicacion* Factory::getControllerPublicacion() {
+    return &ControllerPublicacion::getInstancia();
 }
 
-IControllerInmueble* Factory::getControllerInmueble(){
-    return ControllerInmueble::getInstancia();
+IControllerInmueble* Factory::getControllerInmueble() {
+    return &ControllerInmueble::getInstancia();
 }

@@ -1,9 +1,10 @@
 #include "../include/DTInmuebleListado.h"
 
-DTInmuebleListado::DTInmuebleListado(int codigo, std::string direccion, std::string propietario) {
-    this->codigo = codigo;
-    this->direccion = direccion;
-    this->propietario = propietario;
+DTInmuebleListado::DTInmuebleListado(int codigo, std::string direccion, 
+                                   std::string propietario)
+    : codigo(codigo),
+      direccion(direccion),
+      propietario(propietario) {
 }
 
 int DTInmuebleListado::getCodigo() {

@@ -2,16 +2,12 @@
 #include <sstream>
 #include <iostream>
 
-DTFecha::DTFecha(int dia, int mes, int anio) {
-    this->anio = anio;
-    this->mes = mes;
-    this->dia = dia;
+DTFecha::DTFecha(int dia, int mes, int anio)
+    : dia(dia), mes(mes), anio(anio) {
 }
 
-DTFecha::DTFecha(DTFecha* fecha){
-    this->anio = fecha->anio;
-    this->mes = fecha->mes;
-    this->dia = fecha->dia;
+DTFecha::DTFecha(DTFecha* fecha)
+    : dia(fecha->dia), mes(fecha->mes), anio(fecha->anio) {
 }
 
 bool DTFecha::operator>=(DTFecha* fecha) {
@@ -21,7 +17,6 @@ bool DTFecha::operator>=(DTFecha* fecha) {
         (this->anio == fecha->anio && this->mes == fecha->mes && this->dia >= fecha->dia)
     );
 }
-
 
 bool DTFecha::operator<(DTFecha* fecha) {
     if (fecha == NULL) return false;
@@ -33,11 +28,11 @@ bool DTFecha::operator<(DTFecha* fecha) {
 bool DTFecha::operator==(DTFecha* fecha) {
     if (fecha == NULL) return false;
     return this->anio == fecha->anio && 
-            this->mes == fecha->mes && 
-            this->dia == fecha->dia;
+           this->mes == fecha->mes && 
+           this->dia == fecha->dia;
 }
 
-std::string DTFecha::toString(){
+std::string DTFecha::toString() {
     std::stringstream ss;
     ss << this->dia << "/" << this->mes << "/" << this->anio;
     return ss.str();

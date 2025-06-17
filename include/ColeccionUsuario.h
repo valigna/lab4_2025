@@ -7,19 +7,28 @@
 #include <set>
 
 class ColeccionUsuario {
-    private:
-        static ColeccionUsuario* instancia;
-        std::set<Usuario*> usuarios;
-        std::set<Usuario*>::iterator itUsuarios;
-        ColeccionUsuario();
-        ColeccionUsuario(const ColeccionUsuario&) = delete;
-        ColeccionUsuario& operator=(const ColeccionUsuario&) = delete;
+private:
+    static ColeccionUsuario* instancia;
+    std::set<Usuario*> usuarios;
+    std::set<Usuario*>::iterator itUsuarios;
+    
+    // Constructor privado para Singleton
+    ColeccionUsuario();
+    
+    // Evitar copia (C++98 compatible)
+    ColeccionUsuario(const ColeccionUsuario&);
+    ColeccionUsuario& operator=(const ColeccionUsuario&);
 
-    public:
-        Usuario* next();
-        static ColeccionUsuario& getInstancia();
-        bool existsUsuario(std::string nickname);
-        void addUsuario(Usuario* u);
-        Usuario* findUsuario(std::string nickname); //PRE: existsUsuario(nickname)
+public:
+    ~ColeccionUsuario();
+    
+    static ColeccionUsuario& getInstancia();
+    
+    void addUsuario(Usuario* u);
+    bool existsUsuario(std::string nickname);
+    Usuario* findUsuario(std::string nickname);
+    
+    Usuario* next();
 };
+
 #endif

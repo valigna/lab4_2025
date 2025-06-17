@@ -1,9 +1,10 @@
-#ifndef IObservers_h
-#define IObservers_h
+#ifndef IOBSERVERS_H
+#define IOBSERVERS_H
 
 class IObservers {
 	public:
-		virtual void notificar(int codigo);
+		virtual void notificar(int codigo) = 0;
+		virtual ~IObservers() {}
 };
 
 #endif

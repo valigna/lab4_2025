@@ -6,3 +6,19 @@ Cliente::Cliente(std::string nickname, std::string contrasena, std::string nombr
     documento(documento)
 {}
 
+Cliente::~Cliente() {
+}
+
+std::string Cliente::getApellido() {
+    return this->apellido;
+}
+
+std::string Cliente::getDocumento() {
+    return this->documento;
+}
+
+void Cliente::notificar(int codigo) {
+    // Implementación del observer - por ahora vacía
+    // TODO: Implementar lógica de notificación al cliente
+}
+

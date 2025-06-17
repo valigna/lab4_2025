@@ -1,39 +1,46 @@
-#include "../include/Inmobiliria.h"
+#include "../include/Inmobiliaria.h"
+#include "../include/AdministraPropiedad.h"
 
-Inmobiliaria(std::string nickname, std::string contrasena, std::string nombre, std::string email, std::string direccion, std::string url, std::string telefono){
-    this->nickname=nickname;
-    this->contrasena=contrasena;
-    this->nombre=nombre;
-    this->email=email;
-    this->direccion=direccion;
-    this->url=url;
-    this->telefono=telefono;
+Inmobiliaria::Inmobiliaria(std::string nickname, std::string contrasena, std::string nombre, 
+                          std::string email, std::string direccion, std::string url, std::string telefono)
+    : Usuario(nickname, contrasena, nombre, email),
+      direccion(direccion),
+      url(url),
+      telefono(telefono) {
 }
 
-void notificarObservers(int codigo) {
-	std::set<IObservers*>::iterator it;
-	for (it = observers.begin(); it != observers.end(); ++it) {
-		it->notificar(int codigo);
-	}	
+Inmobiliaria::~Inmobiliaria() {
 }
 
-std::set<Propietario*>& Inmobiliaria::getPropietarios(){
+std::set<Propietario*>& Inmobiliaria::getPropietarios() {
     return this->propietarios;
 }
 
-std::set<AdministraPropiedad*> Inmobiliaria::getAPs(){
+std::set<AdministraPropiedad*> Inmobiliaria::getAPs() {
     return this->APs;
 }
 
-AdministraPropiedad* Inmobiliaria::getAP(int codigoInmueble){
-    for (AdministraPropiedad* ap:APs){
-        if (ap->inmueble.getCodigo()==codigoInmueble){
-            return ap;
+AdministraPropiedad* Inmobiliaria::getAP(int codigoInmueble) {
+    std::set<AdministraPropiedad*>::iterator it;
+    for (it = APs.begin(); it != APs.end(); ++it) {
+        if ((*it)->getInmueble()->getCodigo() == codigoInmueble) {
+            return *it;
         }
     }
     return NULL;
 }
 
-void suscribir(IObservers* o) {
-	observers->insert(o);
+void Inmobiliaria::suscribir(IObservers* o) {
+    observers.insert(o);
+}
+
+void Inmobiliaria::desuscribir(IObservers* o) {
+    observers.erase(o);
+}
+
+void Inmobiliaria::notificarObservers(int codigo) {
+    std::set<IObservers*>::iterator it;
+    for (it = observers.begin(); it != observers.end(); ++it) {
+        (*it)->notificar(codigo);
+    }
 }

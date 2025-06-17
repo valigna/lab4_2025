@@ -13,17 +13,22 @@ class Inmueble {
         std::string direccion;
         int numeroPuerta;
         int superficie;
-        int anoConstruccion;
+        int anioConstruccion;
         std::set<AdministraPropiedad*> APs;
         Propietario* propietario;
 
     public:
-        Inmueble(int codigo, std::string direccion, int numeroPuerta, int superficie, int anoConstruccion);
+        Inmueble(int codigo, std::string direccion, int numeroPuerta, int superficie, int anioConstruccion);
         virtual ~Inmueble();
         int getCodigo();
-        void setPropietario(Propietario* propietario);
-        std::set<AdministraPropiedad*> getAPs();
         std::string getDireccion();
+        int getNumeroPuerta();
+        int getSuperficie();
+        int getAnioConstruccion();
+        Propietario* getPropietario();
+        void setPropietario(Propietario* propietario);
+        std::set<AdministraPropiedad*>& getAPs();
+        void agregarAP(AdministraPropiedad* ap);
 };
 
 #endif

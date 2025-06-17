@@ -7,82 +7,111 @@
 #include "../include/ColeccionUsuario.h"
 #include "../include/Casa.h"
 #include "../include/Apartamento.h"
+#include "../include/DTCasa.h"
+#include "../include/DTApartamento.h"
 
-ControllerPublicacion& ControllerPublicacion::getInstancia(){
-    if (instancia==NULL){
-        instancia= new ControllerPublicacion;
-        instancia->codigoUP=0;
+ControllerPublicacion* ControllerPublicacion::instancia = NULL;
+
+ControllerPublicacion::ControllerPublicacion() : codigoUP(0) {
+}
+
+ControllerPublicacion::~ControllerPublicacion() {
+}
+
+ControllerPublicacion& ControllerPublicacion::getInstancia() {
+    if (instancia == NULL) {
+        instancia = new ControllerPublicacion();
+        instancia->codigoUP = 0;
     }
     return *instancia;
 }
 
-int ControllerPublicacion::actualizarCodigoUP(){
+int ControllerPublicacion::actualizarCodigoUP() {
     this->codigoUP++;
     return this->codigoUP;
 }
 
-bool ControllerPublicacion::AltaPublicacion(std::string nicknameInmobiliaria, int codigoInmueble, TipoPublicacion tipoPublicacion, std::string texto, float precio){
-    Inmobiliaria* i= static_cast<Inmobiliaria*>(ColeccionUsuario::getInstancia().findUsuario(nicknameInmobiliaria));
-    AdministraPropiedad* ap=i->getAP(codigoInmueble);
-    DTFecha* f= Factory::getInstance()->getControladorFechaActual()->getFechaActual();
-    if (ap->existeTipoPublicacionActual(tipoPublicacion)){
+bool ControllerPublicacion::AltaPublicacion(std::string nicknameInmobiliaria, int codigoInmueble, 
+                                          TipoPublicacion tipoPublicacion, std::string texto, float precio) {
+    Usuario* usuario = ColeccionUsuario::getInstancia().findUsuario(nicknameInmobiliaria);
+    Inmobiliaria* i = dynamic_cast<Inmobiliaria*>(usuario);
+    
+    if (i == NULL) return false;
+    
+    AdministraPropiedad* ap = i->getAP(codigoInmueble);
+    if (ap == NULL) return false;
+    
+    DTFecha* f = Factory::getInstance()->getControladorFechaActual()->getFechaActual();
+    
+    if (ap->existeTipoPublicacionActual(tipoPublicacion)) {
+        delete f;
         return false;
     }
-    else {
-        int c=ControllerPublicacion::actualizarCodigoUP();
-        Publicacion* p= new Publicacion(c, f, tipoPublicacion, texto, precio, false);
-        ap->getPublicaciones().insert(p);
-        ControllerPublicacion::getInstancia().publicaciones.insert({c, p}); 
-        p->setAP(ap);
-        if (tipoPublicacion==Venta){
-            if (ap->getPVentaActiva()==NULL){
-                p->activar();
-                ap->setPVentaActiva(p);
-            }
-            else if (ap->getPVentaActiva()->getDTFecha()->operator<(f)){
-                ap->getPVentaActiva()->desactivar();
-                p->activar();
-                ap->setPVentaActiva(p);
-            }
+    
+    int c = this->actualizarCodigoUP();
+    Publicacion* p = new Publicacion(c, f, tipoPublicacion, texto, precio, false);
+    ap->getPublicaciones().insert(p);
+    this->publicaciones.insert(std::make_pair(c, p)); 
+    p->setAP(ap);
+    
+    if (tipoPublicacion == Venta) {
+        if (ap->getPVentaActiva() == NULL) {
+            p->activar();
+            ap->setPVentaActiva(p);
+        } else if (ap->getPVentaActiva()->getDTFecha()->operator<(f)) {
+            ap->getPVentaActiva()->desactivar();
+            p->activar();
+            ap->setPVentaActiva(p);
         }
-        else {
-            if (ap->getPAlquilerActiva()==NULL){
-                p->activar();
-                ap->setPAlquilerActiva(p);
-            }
-            else if (ap->getPAlquilerActiva()->getDTFecha()->operator<(f)){
-                ap->getPAlquilerActiva()->desactivar();
-                p->activar();
-                ap->setPAlquilerActiva(p);
-            }
+    } else {
+        if (ap->getPAlquilerActiva() == NULL) {
+            p->activar();
+            ap->setPAlquilerActiva(p);
+        } else if (ap->getPAlquilerActiva()->getDTFecha()->operator<(f)) {
+            ap->getPAlquilerActiva()->desactivar();
+            p->activar();
+            ap->setPAlquilerActiva(p);
         }
     }
+    
     return true;
 }
 
-std::set<DTPublicacion*> ControllerPublicacion::listarPublicacion(TipoPublicacion tipoPublicacion, float precioMinimo, float precioMaximo, TipoInmueble tipoInmueble){  
+std::set<DTPublicacion*> ControllerPublicacion::listarPublicacion(TipoPublicacion tipoPublicacion, 
+                                                                 float precioMinimo, float precioMaximo, 
+                                                                 TipoInmueble tipoInmueble) {
     std::set<DTPublicacion*> resultado;
-    for (const auto& par : publicaciones) {
-        Publicacion* pub = par.second;
+    std::map<int, Publicacion*>::iterator it;
+    
+    for (it = publicaciones.begin(); it != publicaciones.end(); ++it) {
+        Publicacion* pub = it->second;
         if (pub->cumpleFiltros(tipoPublicacion, precioMinimo, precioMaximo) &&
             pub->mismotipo(tipoInmueble)) {
-
             DTPublicacion* dt = pub->getDatos();
             resultado.insert(dt);
         }
     }
-
+    
     return resultado;
 }
 
 DTInmueble* ControllerPublicacion::detalleInmueblePublicacion(int codigoPublicacion) {
-    Publicacion* pub = this->publicaciones.find(codigoPublicacion)->second;
+    std::map<int, Publicacion*>::iterator it = this->publicaciones.find(codigoPublicacion);
+    if (it == this->publicaciones.end()) {
+        return NULL;
+    }
+    
+    Publicacion* pub = it->second;
     Inmueble* i = pub->getAP()->getInmueble();
-    if (dynamic_cast<Casa*>(i) != nullptr) {
-        Casa* casa = static_cast<Casa*>(i);
-        return new DTCasa(casa->getCodigo(), casa->getDireccion(), casa->getNumeroPuerta(), casa->getSuperficie(), casa->getAnoConstruccion(), casa->getEsPH(), casa->getTecho());
+    
+    class Casa* casa = dynamic_cast<class Casa*>(i);
+    if (casa != NULL) {
+        return new DTCasa(casa->getCodigo(), casa->getDireccion(), casa->getNumeroPuerta(), 
+                         casa->getSuperficie(), casa->getAnioConstruccion(), casa->getEsPH(), casa->getTecho());
     } else {
-        Apartamento* apto = static_cast<Apartamento*>(i);
-        return new DTApartamento(apto->getCodigo(), apto->getDireccion(), apto->getNumeroPuerta(), apto->getSuperficie(), apto->getAnoConstruccion(), apto->getPiso(), apto->getTieneAscensor(), apto->getGastosComunes());
+        class Apartamento* apto = dynamic_cast<class Apartamento*>(i);
+        return new DTApartamento(apto->getCodigo(), apto->getDireccion(), apto->getNumeroPuerta(), 
+                                apto->getSuperficie(), apto->getAnioConstruccion(), apto->getPiso(), 
+                                apto->getTieneAscensor(), apto->getGastosComunes());
     }
 }
