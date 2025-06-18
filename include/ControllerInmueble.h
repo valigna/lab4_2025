@@ -10,7 +10,7 @@ private:
     int ultimoCodigoInmueble;
     static ControllerInmueble* instancia;
     ControllerInmueble();
-
+  std::map <int,Inmueble*> inmuebles;
 public:
     static ControllerInmueble& getInstancia();
     ~ControllerInmueble();
