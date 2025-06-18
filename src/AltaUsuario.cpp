@@ -158,11 +158,14 @@ void AltaUsuario::agregarSuscripciones(std::set<std::string> nicksInmobiliarias)
     for (it = nicksInmobiliarias.begin(); it != nicksInmobiliarias.end(); ++it) {
         Usuario* usuario = ColeccionUsuario::getInstancia().findUsuario(*it);
         Inmobiliaria* inmobiliaria = dynamic_cast<Inmobiliaria*>(usuario);
-        if (inmobiliaria != NULL) {
-            Cliente* cliente = dynamic_cast<Cliente*>(this->getUtemp());
+        if (inmobiliaria != NULL) { 
+            IObservers* suscriptor = dynamic_cast<IObservers*>(this->getUtemp());
+			inmobiliaria->suscribir(suscriptor);
+			
+			/*
             if (cliente != NULL) {
                 inmobiliaria->suscribir(cliente);
-            }
+            }*/
         }
     }
 }	
