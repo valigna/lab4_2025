@@ -21,6 +21,9 @@ public:
                   int anioConstruccion, bool esPH, TipoTecho techo);
     void AltaApartamento(std::string direccion, int numeroPuerta, int superficie, 
                         int anioConstruccion, int piso, bool tieneAscensor, float gastosComunes);
+ std::set(DTInmuebleListado*) listarInmuebles();
+    DTInmueble* detalleInmueble(codigoInmueble int);
+
 };
 
 #endif
