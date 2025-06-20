@@ -30,6 +30,10 @@ AdministraPropiedad* Inmobiliaria::getAP(int codigoInmueble) {
     return NULL;
 }
 
+bool Inmobiliaria::estaSuscrito(IObservers* observer) {
+	return this->observers.contains(observer);
+}
+
 void Inmobiliaria::suscribir(IObservers* o) {
     observers.insert(o);
 }

@@ -28,7 +28,7 @@ public:
     std::set<Propietario*>& getPropietarios();
     std::set<AdministraPropiedad*> getAPs();
     AdministraPropiedad* getAP(int codigoInmueble);
-    
+	bool estaSuscrito(IObservers* observer);    
     void suscribir(IObservers* o);
     void desuscribir(IObservers* o);
 };
