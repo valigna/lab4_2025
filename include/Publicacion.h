@@ -4,6 +4,7 @@
 #include "DTFecha.h"
 #include "TipoPublicacion.h"
 #include "DTPublicacion.h"
+#include "DTNotificacion.h"
 #include "TipoInmueble.h"
 #include <string>
 
@@ -40,6 +41,8 @@ public:
     bool cumpleFiltros(TipoPublicacion tipopublicacion, float preciominimo, float preciomaximo);
     bool mismotipo(TipoInmueble tipo);
     DTPublicacion* getDatos();
+
+	DTNotificacion* getNotif();
 };
 
 #endif

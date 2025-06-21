@@ -100,3 +100,7 @@ DTPublicacion* Publicacion::getDatos() {
     return new DTPublicacion(this->codigo, this->fecha, this->texto, 
                            precioStr.str(), AP->getInmobiliaria()->getNombre());
 }
+/*
+DTNotificacion* getNotif() {
+	return new DTNotificacion(this->
+}*/

@@ -345,7 +345,15 @@ void eliminarInmueble(){
 }
 
 void suscribirseNotificaciones(){
-
+	Factory* factory = Factory::getInstance();
+	IAltaUsuario* iAltaUsuario = factory->getAltaUsuario();
+	std::set<std::string> suscripciones;
+	std::string nick;
+	std::getline(std::cin, nick);
+	std::set<DTUsuario*> lista = iAltaUsuario->listarNoSuscrpciones(nick);
+	// imprimir lista
+	// leer las n nuevas suscripciones
+	iAltaUsuario->agregarSuscripciones(suscripciones);
 }
 
 void consultaNotificaciones(){
