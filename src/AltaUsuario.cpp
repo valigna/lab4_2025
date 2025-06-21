@@ -183,3 +183,4 @@ std::set<DTNotificacion*> AltaUsuario::getNotifs(std::string nick) {
 	usuarioObserver->borrarNotifs();
 	return notifs;
 }	
+
