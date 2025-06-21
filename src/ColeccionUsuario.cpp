@@ -9,8 +9,6 @@ ColeccionUsuario::ColeccionUsuario() {
 }
 
 ColeccionUsuario::~ColeccionUsuario() {
-    // Los usuarios son responsabilidad de quien los creó
-    // Solo limpiamos la referencia estática
 }
 
 Usuario* ColeccionUsuario::next() {

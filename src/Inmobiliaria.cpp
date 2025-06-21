@@ -20,6 +20,14 @@ std::set<AdministraPropiedad*> Inmobiliaria::getAPs() {
     return this->APs;
 }
 
+void Inmobiliaria::addAP(AdministraPropiedad* ap) {
+    this->APs.insert(ap);
+}
+
+void Inmobiliaria::removeAP(AdministraPropiedad* ap) {
+    this->APs.erase(ap);
+}
+
 AdministraPropiedad* Inmobiliaria::getAP(int codigoInmueble) {
     std::set<AdministraPropiedad*>::iterator it;
     for (it = APs.begin(); it != APs.end(); ++it) {
@@ -31,7 +39,7 @@ AdministraPropiedad* Inmobiliaria::getAP(int codigoInmueble) {
 }
 
 bool Inmobiliaria::estaSuscrito(IObservers* observer) {
-	return this->observers.contains(observer);
+	return this->observers.find(observer) != this->observers.end();
 }
 
 void Inmobiliaria::suscribir(IObservers* o) {

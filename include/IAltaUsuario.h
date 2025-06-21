@@ -7,6 +7,9 @@
 #include "TipoTecho.h"
 #include "DTFecha.h"
 #include "DTInmuebleAdministrado.h"
+#include "DTInmuebleListado.h"
+#include "DTUsuario.h"
+#include "DTNotificacion.h"
 
 class IAltaUsuario {
     public:
@@ -19,7 +22,14 @@ class IAltaUsuario {
         virtual void representarPropietario(std::string nicknamePropietario) = 0; 
         virtual void finalizarAltaUsuario() = 0;
         virtual std::set<DTUsuario*> listarInmobiliarias() = 0;
-        virtual std::set<DTInmuebleAdministrado*> listarInmueblesAdministrados(std::string nicknameInmobiliaria) = 0; 
+        virtual std::set<DTInmuebleAdministrado*> listarInmueblesAdministrados(std::string nicknameInmobiliaria) = 0;
+        virtual std::set<DTUsuario*> listarNoSuscripciones(std::string nick) = 0;
+        virtual void agregarSuscripciones(std::set<std::string> nicksInmobiliarias) = 0;
+        virtual std::set<DTNotificacion*> getNotifs(std::string nick) = 0;
+        virtual std::set<DTUsuario*> listarSuscripciones(std::string nick) = 0;
+        virtual void eliminarSuscripciones(std::set<std::string> nicksInmobiliarias) = 0;
+        virtual std::set<DTInmuebleListado*> listarInmueblesNoAdministrados(std::string nicknameInmobiliaria) = 0;
+        virtual void altaAdministraPropiedad(std::string nicknameInmobiliaria, int codigoInmueble) = 0;
 };
 
 #endif

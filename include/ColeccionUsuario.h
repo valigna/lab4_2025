@@ -12,10 +12,8 @@ private:
     std::set<Usuario*> usuarios;
     std::set<Usuario*>::iterator itUsuarios;
     
-    // Constructor privado para Singleton
     ColeccionUsuario();
     
-    // Evitar copia (C++98 compatible)
     ColeccionUsuario(const ColeccionUsuario&);
     ColeccionUsuario& operator=(const ColeccionUsuario&);
 

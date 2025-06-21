@@ -45,4 +45,4 @@ valgrind:
 	valgrind --leak-check=full ./$(EXECUTABLE)
 
 entrega:
-	zip -r 52_lab0.zip Makefile src include
+	zip -r 98_lab4.zip Makefile src include
