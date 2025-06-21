@@ -173,4 +173,13 @@ void AltaUsuario::agregarSuscripciones(std::set<std::string> nicksInmobiliarias)
             }*/
         }
     }
+}
+
+std::set<DTNotificacion*> AltaUsuario::getNotifs(std::string nick) {
+	Usuario* usuario = ColeccionUsuario::getInstancia().findUsuario(nick);
+	IObservers* usuarioObserver = dynamic_cast<IObservers*>(usuario);
+	std::set<DTNotificacion*> notifs;
+	notifs = usuarioObserver->getNotifs();
+	usuarioObserver->borrarNotifs();
+	return notifs;
 }	

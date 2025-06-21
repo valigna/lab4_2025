@@ -22,3 +22,10 @@ void Cliente::notificar(int codigo) {
     // TODO: Implementar lógica de notificación al cliente
 }
 
+std::set<DTNotificacion*> getNotifs() {
+	return this->notificaciones;
+}
+
+void borrarNotifs() {
+	this->notificaciones.clear();
+}

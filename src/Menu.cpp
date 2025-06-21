@@ -357,7 +357,13 @@ void suscribirseNotificaciones(){
 }
 
 void consultaNotificaciones(){
-
+	std::set<DTNotificacion*> notifs;
+	std::string nick;
+	std::getline(std::cin, nick);
+	Factory* factory = Factory::getInstance();
+	IAltaUsuario* iAltaUsuario = factory->getAltaUsuario();
+	notifs = iAltaUsuario->getNotifs(nick);
+	// imprimir notifs
 }
 
 void eliminarSuscripciones(){

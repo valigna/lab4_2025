@@ -38,6 +38,7 @@ public:
     std::set<DTInmuebleAdministrado*> listarInmueblesAdministrados(std::string nicknameInmobiliaria);
     std::set<DTUsuario*> listarNoSuscripciones(std::string nick);
     void agregarSuscripciones(std::set<std::string> nicksInmobiliarias);
+	std::set<DTNotificacion*> getNotifs(std::string nick);
 };
 
 #endif

@@ -30,3 +30,11 @@ void Propietario::notificar(int codigo) {
     // Implementación del observer - por ahora vacía
     // TODO: Implementar lógica de notificación al propietario
 }
+
+std::set<DTNotificacion*> getNotifs() {
+	return this->notificaciones;
+}
+
+void borrarNotifs() {
+	this->notificaciones.clear();
+}

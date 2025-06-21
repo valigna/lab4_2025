@@ -9,6 +9,8 @@ class IObservers {
 
 	public:
 		virtual void notificar(int codigo) = 0;
+		virtual std::set<DTNotificacion*> getNotifs() = 0;
+		virtual void borrarNotifs() = 0;
 		virtual ~IObservers() {}
 };
 
