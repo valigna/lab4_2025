@@ -8,7 +8,7 @@
 #include "../include/ControladorFechaActual.h"
 #include "../include/Factory.h"
 #include "../include/AdministraPropiedad.h"
-
+#include <iostream>
 AltaUsuario* AltaUsuario::instancia = NULL;
 
 AltaUsuario::AltaUsuario() : Utemp(NULL) {
@@ -35,35 +35,53 @@ Usuario* AltaUsuario::getUtemp() {
 
 bool AltaUsuario::altaCliente(std::string nickname, std::string contrasena, std::string nombre, 
                              std::string email, std::string apellido, std::string documento) {
-    bool exists = ColeccionUsuario::getInstancia().existsUsuario(nickname);
-    if (!exists) {
-        Cliente* c = new Cliente(nickname, contrasena, nombre, email, apellido, documento);
-        ColeccionUsuario::getInstancia().addUsuario(c);
+    if (contrasena.length()>=6){
+        bool exists = ColeccionUsuario::getInstancia().existsUsuario(nickname);
+        if (!exists) {
+            Cliente* c = new Cliente(nickname, contrasena, nombre, email, apellido, documento);
+            ColeccionUsuario::getInstancia().addUsuario(c);
+        }
+        return !exists;
     }
-    return !exists;
+    else {
+        std::cout << "La contraseña tiene que tener al menos 6 caracteres" << std::endl; 
+        return false;
+    }
 }
 
 bool AltaUsuario::altaPropietario(std::string nickname, std::string contrasena, std::string nombre, 
                                  std::string email, std::string cuentaBancaria, std::string telefono) {
-    bool exists = ColeccionUsuario::getInstancia().existsUsuario(nickname);
-    if (!exists) {
+    if (contrasena.length()>=6){
+        bool exists = ColeccionUsuario::getInstancia().existsUsuario(nickname);
+        if (!exists) {
         Propietario* p = new Propietario(nickname, contrasena, nombre, email, cuentaBancaria, telefono);
         ColeccionUsuario::getInstancia().addUsuario(p);
         this->guardarReferencia(p);
+        }
+        return !exists;
+    else {
+        std::cout << "La contraseña tiene que tener al menos 6 caracteres" << std::endl; 
+        return false;
+        }
     }
-    return !exists;
 }
 
 bool AltaUsuario::altaInmobiliaria(std::string nickname, std::string contrasena, std::string nombre, 
                                   std::string email, std::string direccion, std::string url, std::string telefono) {
+    if (contrasena.length()>=6){
     bool exists = ColeccionUsuario::getInstancia().existsUsuario(nickname);
     if (!exists) {
         Inmobiliaria* i = new Inmobiliaria(nickname, contrasena, nombre, email, direccion, url, telefono);
         ColeccionUsuario::getInstancia().addUsuario(i);
         this->guardarReferencia(i);
-    }
+        }
     return !exists;
-}
+    else {
+        std::cout << "La contraseña tiene que tener al menos 6 caracteres" << std::endl; 
+        return false;
+        }
+    } 
+}  
 
 std::set<DTUsuario*> AltaUsuario::listarPropietarios() {
     std::set<DTUsuario*> propietarios;
