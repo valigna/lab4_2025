@@ -4,7 +4,7 @@
 #include "DTNotificacion.h"
 
 class IObservers {
-	private:
+	protected:
 		std::set<DTNotificacion *> notificaciones;
 
 	public:

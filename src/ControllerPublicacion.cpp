@@ -74,6 +74,8 @@ bool ControllerPublicacion::AltaPublicacion(std::string nicknameInmobiliaria, in
         }
     }
     
+    i->notificarObservers(c);
+    
     return true;
 }
 
@@ -114,4 +116,12 @@ DTInmueble* ControllerPublicacion::detalleInmueblePublicacion(int codigoPublicac
                                 apto->getSuperficie(), apto->getAnioConstruccion(), apto->getPiso(), 
                                 apto->getTieneAscensor(), apto->getGastosComunes());
     }
+}
+
+Publicacion* ControllerPublicacion::getPublicacion(int codigo) {
+    std::map<int, Publicacion*>::iterator it = this->publicaciones.find(codigo);
+    if (it != this->publicaciones.end()) {
+        return it->second;
+    }
+    return NULL;
 }

@@ -30,6 +30,7 @@ public:
     std::set<DTPublicacion*> listarPublicacion(TipoPublicacion tipoPublicacion, float precioMinimo, 
                                               float precioMaximo, TipoInmueble tipoInmueble);
     DTInmueble* detalleInmueblePublicacion(int codigoPublicacion);
+    Publicacion* getPublicacion(int codigo);
 };
 
 #endif

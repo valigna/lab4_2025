@@ -109,7 +109,7 @@ void AltaUsuario::representarPropietario(std::string nicknamePropietario) {
             AdministraPropiedad* ap = new AdministraPropiedad(Factory::getInstance()->getControladorFechaActual()->getFechaActual());
             ap->setInmobiliaria(i);
             ap->setInmueble(*it);
-            i->getAPs().insert(ap);
+            i->addAP(ap);
         }
         i->getPropietarios().insert(p);
     }
@@ -137,14 +137,14 @@ std::set<DTInmuebleAdministrado*> AltaUsuario::listarInmueblesAdministrados(std:
 
 std::set<DTUsuario*> AltaUsuario::listarNoSuscripciones(std::string nick) {
     std::set<DTUsuario*> inmobiliarias;
-	Usuario* primero = ColeccionUsuario::getInstancia().next(); // usuario usado como flag para el while
-	Usuario* posibleSuscriptor = ColeccionUsuario::getInstancia().findUsuario(nick); // usuario q se esta suscribiendo
-	this->guardarReferencia(posibleSuscriptor); // guardo en utemp
-	IObservers* posibleSuscriptorObserver = dynamic_cast<IObservers*>(posibleSuscriptor); // lo transformo en observer
-	Usuario* usuario = ColeccionUsuario::getInstancia().next(); // variable usuario se usa para iterar
-
-    if (usuario == NULL) return inmobiliarias;
+	Usuario* posibleSuscriptor = ColeccionUsuario::getInstancia().findUsuario(nick);
+	this->guardarReferencia(posibleSuscriptor);
+	IObservers* posibleSuscriptorObserver = dynamic_cast<IObservers*>(posibleSuscriptor);
+	
+	Usuario* primero = ColeccionUsuario::getInstancia().next();
+    if (primero == NULL) return inmobiliarias;
     
+    Usuario* usuario = primero;
 	do {
 		Inmobiliaria* inmobiliaria = dynamic_cast<Inmobiliaria*>(usuario);
         if (inmobiliaria != NULL) {
@@ -182,5 +182,125 @@ std::set<DTNotificacion*> AltaUsuario::getNotifs(std::string nick) {
 	notifs = usuarioObserver->getNotifs();
 	usuarioObserver->borrarNotifs();
 	return notifs;
-}	
+}
 
+std::set<DTUsuario*> AltaUsuario::listarSuscripciones(std::string nick) {
+    std::set<DTUsuario*> inmobiliarias;
+	Usuario* posibleSuscriptor = ColeccionUsuario::getInstancia().findUsuario(nick);
+	this->guardarReferencia(posibleSuscriptor);
+	IObservers* posibleSuscriptorObserver = dynamic_cast<IObservers*>(posibleSuscriptor); 
+	
+	Usuario* primero = ColeccionUsuario::getInstancia().next();
+    if (primero == NULL) return inmobiliarias;
+    
+    Usuario* usuario = primero;
+	do {
+		Inmobiliaria* inmobiliaria = dynamic_cast<Inmobiliaria*>(usuario);
+        if (inmobiliaria != NULL) {
+            if (inmobiliaria->estaSuscrito(posibleSuscriptorObserver)) {
+	            inmobiliarias.insert(usuario->getDTUsuario());
+			}
+        }
+        usuario = ColeccionUsuario::getInstancia().next();
+    } while (usuario != primero);
+    
+    return inmobiliarias;
+}
+
+void AltaUsuario::eliminarSuscripciones(std::set<std::string> nicksInmobiliarias) {
+    std::set<std::string>::iterator it;
+    for (it = nicksInmobiliarias.begin(); it != nicksInmobiliarias.end(); ++it) {
+        Usuario* usuario = ColeccionUsuario::getInstancia().findUsuario(*it);
+        Inmobiliaria* inmobiliaria = dynamic_cast<Inmobiliaria*>(usuario);
+        if (inmobiliaria != NULL) { 
+            IObservers* suscriptor = dynamic_cast<IObservers*>(this->getUtemp());
+			inmobiliaria->desuscribir(suscriptor);
+        }
+    }
+}
+
+std::set<DTInmuebleListado*> AltaUsuario::listarInmueblesNoAdministrados(std::string nicknameInmobiliaria) {
+    std::set<DTInmuebleListado*> resultado;
+    
+    Usuario* usuario = ColeccionUsuario::getInstancia().findUsuario(nicknameInmobiliaria);
+    Inmobiliaria* inmobiliaria = dynamic_cast<Inmobiliaria*>(usuario);
+    
+    if (inmobiliaria == NULL) {
+        return resultado;
+    }
+    
+    IControllerInmueble* controllerInmueble = Factory::getInstance()->getControllerInmueble();
+    std::set<DTInmuebleListado*> todosInmuebles = controllerInmueble->listarInmuebles();
+    
+    std::set<int> codigosAdministrados;
+    std::set<AdministraPropiedad*> aps = inmobiliaria->getAPs();
+    for (std::set<AdministraPropiedad*>::iterator it = aps.begin(); it != aps.end(); ++it) {
+        codigosAdministrados.insert((*it)->getInmueble()->getCodigo());
+    }
+    
+    for (std::set<DTInmuebleListado*>::iterator it = todosInmuebles.begin(); it != todosInmuebles.end(); ++it) {
+        DTInmuebleListado* inmueble = *it;
+        if (codigosAdministrados.find(inmueble->getCodigo()) == codigosAdministrados.end()) {
+            resultado.insert(new DTInmuebleListado(inmueble->getCodigo(), inmueble->getDireccion(), inmueble->getPropietario()));
+        }
+    }
+    
+    for (std::set<DTInmuebleListado*>::iterator it = todosInmuebles.begin(); it != todosInmuebles.end(); ++it) {
+        delete *it;
+    }
+    
+    return resultado;
+}
+
+void AltaUsuario::altaAdministraPropiedad(std::string nicknameInmobiliaria, int codigoInmueble) {
+    Usuario* usuario = ColeccionUsuario::getInstancia().findUsuario(nicknameInmobiliaria);
+    Inmobiliaria* inmobiliaria = dynamic_cast<Inmobiliaria*>(usuario);
+    
+    if (inmobiliaria == NULL) {
+        return;
+    }
+    
+    IControllerInmueble* controllerInmueble = Factory::getInstance()->getControllerInmueble();
+    std::set<DTInmuebleListado*> todosInmuebles = controllerInmueble->listarInmuebles();
+    
+    Inmueble* inmueble = NULL;
+    DTInmueble* dtInmueble = controllerInmueble->detalleInmueble(codigoInmueble);
+    if (dtInmueble == NULL) {
+        for (std::set<DTInmuebleListado*>::iterator it = todosInmuebles.begin(); it != todosInmuebles.end(); ++it) {
+            delete *it;
+        }
+        return;
+    }
+    
+    for (std::set<DTInmuebleListado*>::iterator it = todosInmuebles.begin(); it != todosInmuebles.end(); ++it) {
+        if ((*it)->getCodigo() == codigoInmueble) {
+            Usuario* propietarioUsuario = ColeccionUsuario::getInstancia().findUsuario((*it)->getPropietario());
+            Propietario* propietario = dynamic_cast<Propietario*>(propietarioUsuario);
+            if (propietario != NULL) {
+                std::set<Inmueble*>& inmuebles = propietario->getInmuebles();
+                for (std::set<Inmueble*>::iterator inmIt = inmuebles.begin(); inmIt != inmuebles.end(); ++inmIt) {
+                    if ((*inmIt)->getCodigo() == codigoInmueble) {
+                        inmueble = *inmIt;
+                        break;
+                    }
+                }
+            }
+            break;
+        }
+    }
+    
+    if (inmueble != NULL) {
+        AdministraPropiedad* ap = new AdministraPropiedad(Factory::getInstance()->getControladorFechaActual()->getFechaActual());
+        ap->setInmobiliaria(inmobiliaria);
+        ap->setInmueble(inmueble);
+        
+        inmobiliaria->addAP(ap);
+        
+        inmueble->agregarAP(ap);
+    }
+    
+    delete dtInmueble;
+    for (std::set<DTInmuebleListado*>::iterator it = todosInmuebles.begin(); it != todosInmuebles.end(); ++it) {
+        delete *it;
+    }
+}

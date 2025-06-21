@@ -9,6 +9,7 @@
 #include "IObservers.h"
 #include "DTUsuario.h"
 #include "DTInmuebleAdministrado.h"
+#include "DTInmuebleListado.h"
 
 class AltaUsuario : public IAltaUsuario {
 private:
@@ -39,6 +40,10 @@ public:
     std::set<DTUsuario*> listarNoSuscripciones(std::string nick);
     void agregarSuscripciones(std::set<std::string> nicksInmobiliarias);
 	std::set<DTNotificacion*> getNotifs(std::string nick);
+    std::set<DTUsuario*> listarSuscripciones(std::string nick);
+    void eliminarSuscripciones(std::set<std::string> nicksInmobiliarias);
+    std::set<DTInmuebleListado*> listarInmueblesNoAdministrados(std::string nicknameInmobiliaria);
+    void altaAdministraPropiedad(std::string nicknameInmobiliaria, int codigoInmueble);
 };
 
 #endif

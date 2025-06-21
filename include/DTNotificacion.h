@@ -14,6 +14,11 @@ class DTNotificacion {
 	public:
 		DTNotificacion(std::string inmobiliaraNick, int codigo, std::string texto, TipoPublicacion tipo);
 		~DTNotificacion();
+		
+		std::string getInmobiliaraNick() const;
+		int getCodigo() const;
+		std::string getTexto() const;
+		TipoPublicacion getTipo() const;
 };
 
 #endif

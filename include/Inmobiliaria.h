@@ -17,8 +17,6 @@ private:
     std::set<Propietario*> propietarios;
     std::set<AdministraPropiedad*> APs;
     std::set<IObservers*> observers;
-    
-    void notificarObservers(int codigo);
 
 public:
     Inmobiliaria(std::string nickname, std::string contrasena, std::string nombre, 
@@ -27,10 +25,13 @@ public:
     
     std::set<Propietario*>& getPropietarios();
     std::set<AdministraPropiedad*> getAPs();
+    void addAP(AdministraPropiedad* ap);
+    void removeAP(AdministraPropiedad* ap);
     AdministraPropiedad* getAP(int codigoInmueble);
 	bool estaSuscrito(IObservers* observer);    
     void suscribir(IObservers* o);
     void desuscribir(IObservers* o);
+    void notificarObservers(int codigo);
 };
 
 #endif

@@ -1,4 +1,6 @@
 #include "../include/Propietario.h"
+#include "../include/ControllerPublicacion.h"
+#include "../include/Publicacion.h"
 
 Propietario::Propietario(std::string nickname, std::string contrasena, std::string nombre, 
                         std::string email, std::string cuentaBancaria, std::string telefono)
@@ -27,14 +29,21 @@ void Propietario::agregarInmueble(Inmueble* inmueble) {
 }
 
 void Propietario::notificar(int codigo) {
-    // Implementación del observer - por ahora vacía
-    // TODO: Implementar lógica de notificación al propietario
+    ControllerPublicacion& controller = ControllerPublicacion::getInstancia();
+    Publicacion* publicacion = controller.getPublicacion(codigo);
+    
+    if (publicacion != NULL) {
+        DTNotificacion* notificacion = publicacion->getNotif();
+        if (notificacion != NULL) {
+            this->notificaciones.insert(notificacion);
+        }
+    }
 }
 
-std::set<DTNotificacion*> getNotifs() {
+std::set<DTNotificacion*> Propietario::getNotifs() {
 	return this->notificaciones;
 }
 
-void borrarNotifs() {
+void Propietario::borrarNotifs() {
 	this->notificaciones.clear();
 }

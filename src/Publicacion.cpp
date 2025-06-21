@@ -2,6 +2,8 @@
 #include "../include/AdministraPropiedad.h"
 #include "../include/Casa.h"
 #include "../include/Apartamento.h"
+#include "../include/TipoInmueble.h"
+#include "../include/Inmobiliaria.h"
 #include <sstream>
 
 Publicacion::Publicacion(int codigo, DTFecha* fecha, TipoPublicacion tipo, 
@@ -77,10 +79,10 @@ bool Publicacion::mismotipo(TipoInmueble tipoInmueble) {
         return false;
     }
     
-    if (tipoInmueble == Casa) {
+    if (tipoInmueble == TipoCasa) {
         class Casa* casaPtr = dynamic_cast<class Casa*>(inmueble);
         return casaPtr != NULL;
-    } else if (tipoInmueble == Apartamento) {
+    } else if (tipoInmueble == TipoApartamento) {
         class Apartamento* apartamentoPtr = dynamic_cast<class Apartamento*>(inmueble);
         return apartamentoPtr != NULL;
     }
@@ -93,14 +95,17 @@ DTPublicacion* Publicacion::getDatos() {
         return NULL;
     }
     
-    // Convertir float precio a string
     std::ostringstream precioStr;
     precioStr << this->precio;
     
     return new DTPublicacion(this->codigo, this->fecha, this->texto, 
                            precioStr.str(), AP->getInmobiliaria()->getNombre());
 }
-/*
-DTNotificacion* getNotif() {
-	return new DTNotificacion(this->
-}*/
+
+DTNotificacion* Publicacion::getNotif() {
+    if (AP == NULL || AP->getInmobiliaria() == NULL) {
+        return NULL;
+    }
+    
+    return new DTNotificacion(AP->getInmobiliaria()->getNickname(), this->codigo, this->texto, this->tipo);
+}

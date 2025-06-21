@@ -20,6 +20,8 @@ public:
     
     // Implementación de IObservers
     void notificar(int codigo);
+    std::set<DTNotificacion*> getNotifs();
+    void borrarNotifs();
 };
 
 #endif
