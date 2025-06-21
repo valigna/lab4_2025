@@ -5,6 +5,7 @@
 #include <set>
 #include "TipoTecho.h"
 #include <DTInmuebleListado.h>
+#include <DTInmueble.h>
 
 class IControllerInmueble{
     public:
