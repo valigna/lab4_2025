@@ -14,7 +14,7 @@ class IControllerInmueble{
         virtual void AltaCasa(std::string direccion, int numeroPuerta, int superficie, int anoConstruccion, bool esPH, TipoTecho techo) = 0;
         virtual void AltaApartamento(std::string direccion, int numeroPuerta, int superficie, int anoConstruccion, int piso, bool tieneAscensor, float gastosComunes) = 0;
         virtual std::set<DTInmuebleListado*> listarInmuebles() = 0;
-        virtual DTInmueble* detalleInmueble(codigoInmueble int) = 0;
+        virtual DTInmueble* detalleInmueble(int codigoInmueble) = 0;
 };
 
 #endif
