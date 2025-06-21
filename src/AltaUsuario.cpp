@@ -59,10 +59,10 @@ bool AltaUsuario::altaPropietario(std::string nickname, std::string contrasena, 
         this->guardarReferencia(p);
         }
         return !exists;
+    }
     else {
         std::cout << "La contraseña tiene que tener al menos 6 caracteres" << std::endl; 
         return false;
-        }
     }
 }
 
@@ -76,12 +76,13 @@ bool AltaUsuario::altaInmobiliaria(std::string nickname, std::string contrasena,
         this->guardarReferencia(i);
         }
     return !exists;
+    }
     else {
         std::cout << "La contraseña tiene que tener al menos 6 caracteres" << std::endl; 
         return false;
-        }
-    } 
-}  
+    }
+} 
+
 
 std::set<DTUsuario*> AltaUsuario::listarPropietarios() {
     std::set<DTUsuario*> propietarios;
