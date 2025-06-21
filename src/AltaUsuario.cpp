@@ -137,16 +137,17 @@ std::set<DTInmuebleAdministrado*> AltaUsuario::listarInmueblesAdministrados(std:
 
 std::set<DTUsuario*> AltaUsuario::listarNoSuscripciones(std::string nick) {
     std::set<DTUsuario*> inmobiliarias;
-	Usuario* primero = ColeccionUsuario::getInstancia().next();
-	Usuario* posibleSuscriptor = ColeccionUsuario::getInstancia().findUsuario(nick);
-	IObservers* posibleSuscriptorObserver = dynamic_cast<IObservers*>(posibleSuscriptor);
-    Usuario* usuario = ColeccionUsuario::getInstancia().next();
+	Usuario* primero = ColeccionUsuario::getInstancia().next(); // usuario usado como flag para el while
+	Usuario* posibleSuscriptor = ColeccionUsuario::getInstancia().findUsuario(nick); // usuario q se esta suscribiendo
+	this->guardarReferencia(posibleSuscriptor); // guardo en utemp
+	IObservers* posibleSuscriptorObserver = dynamic_cast<IObservers*>(posibleSuscriptor); // lo transformo en observer
+	Usuario* usuario = ColeccionUsuario::getInstancia().next(); // variable usuario se usa para iterar
+
     if (usuario == NULL) return inmobiliarias;
-    do {
+    
+	do {
 		Inmobiliaria* inmobiliaria = dynamic_cast<Inmobiliaria*>(usuario);
         if (inmobiliaria != NULL) {
-            // TODO: Verificar si nick no existe en usuario.observers
-            // agregar a inmobiliarias
             if (!inmobiliaria->estaSuscrito(posibleSuscriptorObserver)) {
 	            inmobiliarias.insert(usuario->getDTUsuario());
 			}
