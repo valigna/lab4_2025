@@ -125,3 +125,25 @@ Publicacion* ControllerPublicacion::getPublicacion(int codigo) {
     }
     return NULL;
 }
+
+void eliminarPublicacion(int codigoPublicacion) {
+    std::map<int, Publicacion*>::iterator it = this->publicaciones.find(codigoPublicacion);
+    if (it == this->publicaciones.end()) {
+        return;
+    }
+    
+    Publicacion* pub = it->second;
+    AdministraPropiedad* ap = pub->getAP();
+    
+    if (ap != NULL) {
+        ap->getPublicaciones().erase(pub);
+        if (ap->getPVentaActiva() == pub) {
+            ap->setPVentaActiva(NULL);
+        } else if (ap->getPAlquilerActiva() == pub) {
+            ap->setPAlquilerActiva(NULL);
+        }
+    }
+    
+    delete pub;
+    this->publicaciones.erase(it);
+}

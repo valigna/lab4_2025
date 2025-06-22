@@ -54,8 +54,7 @@ void ControllerInmueble::eliminarInmueble(int codigoInmueble) {
         for (std::set<Publicacion*>::iterator pubIt = pubs.begin(); pubIt != pubs.end(); ++pubIt) {
             Publicacion* pub = *pubIt;
             pub->setAP(NULL);
-            delete pub;
-            pub=NULL;
+            IControllerPublicacion::eliminarPublicacion(pub->getCodigo());
         }
         ap->getPublicaciones().clear();
         
