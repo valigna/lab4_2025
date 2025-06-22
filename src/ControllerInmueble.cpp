@@ -55,6 +55,7 @@ void ControllerInmueble::eliminarInmueble(int codigoInmueble) {
             Publicacion* pub = *pubIt;
             pub->setAP(NULL);
             delete pub;
+            pub=NULL;
         }
         ap->getPublicaciones().clear();
         
@@ -68,6 +69,7 @@ void ControllerInmueble::eliminarInmueble(int codigoInmueble) {
             ap->setInmobiliaria(NULL);
         }
         delete ap;
+        ap=NULL;
     }
     
     inmueble->getAPs().clear();
