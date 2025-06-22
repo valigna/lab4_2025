@@ -87,8 +87,8 @@ std::set<DTPublicacion*> ControllerPublicacion::listarPublicacion(TipoPublicacio
     
     for (it = publicaciones.begin(); it != publicaciones.end(); ++it) {
         Publicacion* pub = it->second;
-        if (pub->cumpleFiltros(tipoPublicacion, precioMinimo, precioMaximo) &&
-            pub->mismotipo(tipoInmueble)) {
+        if (pub!=NULL && (pub->cumpleFiltros(tipoPublicacion, precioMinimo, precioMaximo) &&
+            pub->mismotipo(tipoInmueble))) {
             DTPublicacion* dt = pub->getDatos();
             resultado.insert(dt);
         }
