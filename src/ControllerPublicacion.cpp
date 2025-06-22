@@ -147,3 +147,16 @@ void ControllerPublicacion::eliminarPublicacion(int codigoPublicacion) {
     delete pub;
     this->publicaciones.erase(it);
 }
+
+void ControllerPublicacion::eliminarPublicacionesDeInmueble(int codigoInmueble) {
+    std::vector<int> codigosAEliminar;
+    for (const auto& par : publicaciones) {
+        Publicacion* pub = par.second;
+        if (pub && pub->getAP() && pub->getAP()->getInmueble()->getCodigo() == codigoInmueble) {
+            codigosAEliminar.push_back(par.first);
+        }
+    }
+    for (int codigo : codigosAEliminar) {
+        eliminarPublicacion(codigo);
+    }
+}
