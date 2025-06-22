@@ -31,7 +31,7 @@ public:
                                               float precioMaximo, TipoInmueble tipoInmueble);
     DTInmueble* detalleInmueblePublicacion(int codigoPublicacion);
     Publicacion* getPublicacion(int codigo);
-    void eliminarPublicacion(int codigoPublicacion);
+    void eliminarPublicacionesDeInmueble(int codigoInmueble);
 };
 
 #endif
