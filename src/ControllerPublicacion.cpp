@@ -126,7 +126,7 @@ Publicacion* ControllerPublicacion::getPublicacion(int codigo) {
     return NULL;
 }
 
-void eliminarPublicacion(int codigoPublicacion) {
+void ControllerPublicacion::eliminarPublicacion(int codigoPublicacion) {
     std::map<int, Publicacion*>::iterator it = this->publicaciones.find(codigoPublicacion);
     if (it == this->publicaciones.end()) {
         return;
