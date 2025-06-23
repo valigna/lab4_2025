@@ -17,6 +17,7 @@ class IControllerPublicacion {
         virtual DTInmueble* detalleInmueblePublicacion(int codigoPublicacion) = 0;
         virtual void eliminarPublicacionesDeInmueble(int codigoInmueble) = 0;
         virtual Publicacion* getPublicacion(int codigo) = 0;
+        void eliminarPublicacion(int codigoPublicacion) = 0;
 };
 
 #endif

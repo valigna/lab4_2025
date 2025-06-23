@@ -9,6 +9,7 @@
 #include "../include/Apartamento.h"
 #include "../include/DTCasa.h"
 #include "../include/DTApartamento.h"
+#include <vector>
 
 ControllerPublicacion* ControllerPublicacion::instancia = NULL;
 

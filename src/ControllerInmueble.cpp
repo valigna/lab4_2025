@@ -34,6 +34,9 @@ int ControllerInmueble::actualizarCodigoInmueble() {
 }
 
 void ControllerInmueble::eliminarInmueble(int codigoInmueble) {
+    // Eliminar todas las publicaciones asociadas a este inmueble
+    Factory::getInstance()->getControllerPublicacion()->eliminarPublicacionesDeInmueble(codigoInmueble);
+    
     std::map<int, Inmueble*>::iterator it = this->inmuebles.find(codigoInmueble);
     if (it == this->inmuebles.end()) {
         return;
@@ -50,14 +53,7 @@ void ControllerInmueble::eliminarInmueble(int codigoInmueble) {
     for (std::set<AdministraPropiedad*>::iterator apIt = aps.begin(); apIt != aps.end(); ++apIt) {
         AdministraPropiedad* ap = *apIt;
         
-        std::set<Publicacion*> pubs = ap->getPublicaciones();
-        for (std::set<Publicacion*>::iterator pubIt = pubs.begin(); pubIt != pubs.end(); ++pubIt) {
-            Publicacion* pub = *pubIt;
-            pub->setAP(NULL);
-            Factory::getInstance()->getControllerPublicacion()->eliminarPublicacion(pub->getCodigo());
-        }
         ap->getPublicaciones().clear();
-        
         ap->setPAlquilerActiva(NULL);
         ap->setPVentaActiva(NULL);
         ap->setInmueble(NULL);
@@ -68,7 +64,7 @@ void ControllerInmueble::eliminarInmueble(int codigoInmueble) {
             ap->setInmobiliaria(NULL);
         }
         delete ap;
-        ap=NULL;
+        ap = NULL;
     }
     
     inmueble->getAPs().clear();
